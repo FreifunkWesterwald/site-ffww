@@ -55,7 +55,9 @@ DEFAULT_GLUON_RELEASE := unset
 #			gluon-ff%site_code%-23.42+5-%router_model%.bin
 
 
-
+## GLUON_REGION
+# 		Set Gluon Region
+GLUON_REGION  := eu
 
 # Default priority for updates.
 GLUON_PRIORITY ?= 0
