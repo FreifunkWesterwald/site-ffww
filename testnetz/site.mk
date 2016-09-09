@@ -54,7 +54,9 @@ DEFAULT_GLUON_RELEASE := unset
 #		would generate images named like this:
 #			gluon-ff%site_code%-23.42+5-%router_model%.bin
 
-
+## GLUON_REGION
+# 		Set Gluon Region
+GLUON_REGION  := eu
 
 
 # Default priority for updates.
