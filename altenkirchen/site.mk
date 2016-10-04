@@ -44,7 +44,7 @@ endif
 #		gluon relies on
 #			opkg compare-versions "$1" '>>' "$2"
 #		to decide if a version is newer or not.
-DEFAULT_GLUON_RELEASE := unset
+DEFAULT_GLUON_RELEASE := XX+exp$(shell date '+%Y%m%d')
 
 
 ##	GLUON_RELEASE
@@ -53,6 +53,8 @@ DEFAULT_GLUON_RELEASE := unset
 #			$ make images GLUON_RELEASE=23.42+5
 #		would generate images named like this:
 #			gluon-ff%site_code%-23.42+5-%router_model%.bin
+
+GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
 
 ## GLUON_REGION
