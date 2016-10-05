@@ -41,6 +41,10 @@ if ${x86kvmguest} ;
    then
       make GLUON_TARGET=x86-kvm_guest V=s -j4
 fi
+if ${x8664} ;
+   then
+      make GLUON_TARGET=x86-64 V=s -j4
+fi
 if ${x86xendomu} ;
    then
       make GLUON_TARGET=x86-xen_domu V=s -j4
