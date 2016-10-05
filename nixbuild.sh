@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i /bin/bash -p openssl zlib ncurses gawk file gcc49 getopt git gnumake path perl pkgconfig python27 subversion unzip which bash expat pyxml perlPackages.XMLSAX glibc boost intltool libftdi libgcrypt bc binutils wget
 cd ${WORKSPACE}
-
+echo ${Westerwald}
 if ! [${Westerwald} = ''];
    then
       cp ./ffwwsites/westerwald ./site -r
