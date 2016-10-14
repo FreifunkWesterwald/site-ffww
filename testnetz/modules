@@ -1,0 +1,5 @@
+GLUON_SITE_FEEDS='ffrl'
+
+PACKAGES_FFRL_REPO=https://github.com/ffrl/ffrl-packages.git
+PACKAGES_FFRL_BRANCH=Branch_v2016.2.x
+PACKAGES_FFRL_COMMIT=9ef54396cf79031b1b7e35af038b8a0f2ec1bd90

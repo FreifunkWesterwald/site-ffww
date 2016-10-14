@@ -12,6 +12,7 @@ GLUON_SITE_PACKAGES := \
 	gluon-config-mode-mesh-vpn \
 	gluon-config-mode-geo-location \
 	gluon-config-mode-contact-info \
+	gluon-config-mode-tunneldigger \
 	gluon-ebtables-filter-multicast \
 	gluon-ebtables-filter-ra-dhcp \
 	gluon-luci-admin \
@@ -20,6 +21,8 @@ GLUON_SITE_PACKAGES := \
 	gluon-luci-wifi-config \
 	gluon-next-node \
 	gluon-mesh-vpn-fastd \
+	gluon-mesh-vpn-tunneldigger \
+	gluon-tunneldigger-watchdog \
 	gluon-radvd \
 	gluon-setup-mode \
 	gluon-status-page \
@@ -67,3 +70,5 @@ GLUON_PRIORITY ?= 0
 
 # Languages to include
 GLUON_LANGS ?= de
+
+GLUON_ATH10K_MESH ?= 11s
