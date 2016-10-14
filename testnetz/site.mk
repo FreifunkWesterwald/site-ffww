@@ -23,6 +23,7 @@ GLUON_SITE_PACKAGES := \
 	gluon-mesh-vpn-fastd \
 	gluon-mesh-vpn-tunneldigger \
 	gluon-tunneldigger-watchdog \
+	gluon-migrate-vpn \
 	gluon-radvd \
 	gluon-setup-mode \
 	gluon-status-page \
