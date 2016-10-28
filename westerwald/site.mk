@@ -26,7 +26,9 @@ GLUON_SITE_PACKAGES := \
 	iwinfo \
 	iptables \
 	haveged \
-	gluon-luci-private-wifi
+	gluon-luci-private-wifi \
+	gluon-banner \
+	gluon-ssid-changer
 
 ifeq ($(GLUON_TARGET),x86-generic)
 # support the usb stack on x86 devices
@@ -67,3 +69,5 @@ GLUON_PRIORITY ?= 0
 
 # Languages to include
 GLUON_LANGS ?= de
+
+GLUON_ATH10K_MESH ?= 11s
