@@ -1,4 +1,4 @@
-GLUON_SITE_FEEDS='ffrl'
+GLUON_SITE_FEEDS='ffrl ffww'
 
 PACKAGES_FFRL_REPO=https://github.com/ffrl/ffrl-packages.git
 PACKAGES_FFRL_BRANCH=Branch_v2016.2.x
