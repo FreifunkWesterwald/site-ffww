@@ -1,9 +1,5 @@
-GLUON_SITE_FEEDS='ffrl ffww'
-
-PACKAGES_FFRL_REPO=https://github.com/ffrl/ffrl-packages.git
-PACKAGES_FFRL_BRANCH=Branch_v2016.2.x
-PACKAGES_FFRL_COMMIT=9ef54396cf79031b1b7e35af038b8a0f2ec1bd90
+GLUON_SITE_FEEDS='ffww'
 
 PACKAGES_FFWW_REPO=https://github.com/FreifunkWesterwald/packages.git
 PACKAGES_FFWW_BRANCH=master
-PACKAGES_FFWW_COMMIT=6ce47edaf87226600c8e12d2aa65f43cdc8f0ba9
+PACKAGES_FFWW_COMMIT=8e39e6b7fee09ff1e18865d21b62b1c64f7dd38c
