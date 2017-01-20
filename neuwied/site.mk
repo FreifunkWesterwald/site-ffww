@@ -3,7 +3,6 @@
 ##	GLUON_SITE_PACKAGES
 #		specify gluon/openwrt packages to include here
 GLUON_SITE_PACKAGES := \
-	gluon-mesh-batman-adv-15 \
 	gluon-respondd \
 	gluon-autoupdater \
 	gluon-config-mode-core \
@@ -19,6 +18,7 @@ GLUON_SITE_PACKAGES := \
 	gluon-luci-portconfig \
 	gluon-luci-wifi-config \
 	gluon-next-node \
+	gluon-mesh-batman-adv-15 \
 	gluon-mesh-vpn-fastd \
 	gluon-radvd \
 	gluon-setup-mode \
@@ -68,6 +68,6 @@ GLUON_REGION  := eu
 GLUON_PRIORITY ?= 0
 
 # Languages to include
-GLUON_LANGS ?= de
+GLUON_LANGS ?= en de
 
 GLUON_ATH10K_MESH ?= 11s
