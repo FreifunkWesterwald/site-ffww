@@ -15,7 +15,7 @@ GLUON_SITE_PACKAGES := \
 	gluon-ebtables-filter-ra-dhcp \
 	gluon-web-admin \
 	gluon-web-autoupdater \
-	gluon-web-portconfig \
+	gluon-web-network \
 	gluon-web-wifi-config \
 	gluon-mesh-batman-adv-15 \
 	gluon-mesh-vpn-fastd \
