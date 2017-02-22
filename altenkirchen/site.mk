@@ -13,10 +13,10 @@ GLUON_SITE_PACKAGES := \
 	gluon-config-mode-contact-info \
 	gluon-ebtables-filter-multicast \
 	gluon-ebtables-filter-ra-dhcp \
-	gluon-luci-admin \
-	gluon-luci-autoupdater \
-	gluon-luci-portconfig \
-	gluon-luci-wifi-config \
+	gluon-web-admin \
+	gluon-web-autoupdater \
+	gluon-web-portconfig \
+	gluon-web-wifi-config \
     gluon-mesh-batman-adv-15 \
 	gluon-mesh-vpn-fastd \
 	gluon-radvd \
@@ -25,7 +25,7 @@ GLUON_SITE_PACKAGES := \
 	iwinfo \
 	iptables \
 	haveged \
-	gluon-luci-private-wifi \
+	gluon-web-private-wifi \
 	gluon-banner \
 	gluon-ssid-changer
 
