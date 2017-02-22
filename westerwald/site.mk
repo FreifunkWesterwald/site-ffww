@@ -18,7 +18,7 @@ GLUON_SITE_PACKAGES := \
 	gluon-web-portconfig \
 	gluon-web-wifi-config \
 	gluon-mesh-batman-adv-15 \
-	gluon-web-vpn-fastd \
+	gluon-mesh-vpn-fastd \
 	gluon-radvd \
 	gluon-setup-mode \
 	gluon-status-page \
