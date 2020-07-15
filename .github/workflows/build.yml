@@ -21,9 +21,12 @@ jobs:
     - name: Checkout repository 
       uses: actions/checkout@v2
     
-    - name: Checkout submodules
-      uses: textbook/git-checkout-submodule-action@2.1.1
-      
+    #    - name: Checkout submodules
+    #  uses: textbook/git-checkout-submodule-action@2.1.1
+    - name: Init submodules
+      run:  git submodule update --init
+      working-directory: $GITHUB_WORKSPACE
+  
     - name: Install apt dependencies
       run:  sudo apt-get install git make gcc g++ unzip libncurses5-dev zlib1g-dev subversion gawk bzip2 libssl-dev wget
       
