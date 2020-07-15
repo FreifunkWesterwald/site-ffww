@@ -32,6 +32,8 @@ jobs:
     - name: Run gluon update
       run: make update
       working-directory: gluon/
+      env:
+        GLUON_SITEDIR:  "../"
   
     - name: Run gluon build
       run: make
