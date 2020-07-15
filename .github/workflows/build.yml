@@ -14,15 +14,19 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    
+    env:
+      GLUON_BUILD: "1"
+      GLUON_BRANCH: "master"
+      GLUON_TARGET: "ar71xx-generic"     
+      GLUON_SITEDIR: "../" 
+  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout repository 
       uses: actions/checkout@v2
     
-    #    - name: Checkout submodules
-    #  uses: textbook/git-checkout-submodule-action@2.1.1
     - name: Init submodules
       run:  git submodule update --init
   
@@ -32,14 +36,17 @@ jobs:
     - name: Run gluon update
       run: make update
       working-directory: gluon/
-      env:
-        GLUON_SITEDIR:  "../"
   
     - name: Run gluon build
       run: make
       working-directory: gluon/
-      env:
-        GLUON_BRANCH: "master"
-        GLUON_TARGET: "ar71xx-generic"
-        GLUON_SITEDIR:  "../"  
+    
+    - name: Upload images
+      uses: actions/upload-artifacts@v2
+      with:
+        name: images
+        path: gluon/output/images/  
+        
+        
+    
   
