@@ -42,7 +42,7 @@ jobs:
       working-directory: gluon/
     
     - name: Upload images
-      uses: actions/upload-artifacts@v2
+      uses: actions/upload-artifacts@v1
       with:
         name: images
         path: gluon/output/images/  
