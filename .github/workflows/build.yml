@@ -38,7 +38,7 @@ jobs:
       working-directory: gluon/
   
     - name: Run gluon build
-      run: make
+      run: make -j2
       working-directory: gluon/
     
     - name: Upload images
