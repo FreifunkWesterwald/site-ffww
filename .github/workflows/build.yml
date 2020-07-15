@@ -25,18 +25,17 @@ jobs:
     #  uses: textbook/git-checkout-submodule-action@2.1.1
     - name: Init submodules
       run:  git submodule update --init
-      working-directory: $GITHUB_WORKSPACE
   
     - name: Install apt dependencies
       run:  sudo apt-get install git make gcc g++ unzip libncurses5-dev zlib1g-dev subversion gawk bzip2 libssl-dev wget
       
     - name: Run gluon update
       run: make update
-      working-directory: $GITHUB_WORKSPACE/gluon/
+      working-directory: gluon/
   
     - name: Run gluon build
       run: make
-      working-directory: $GITHUB_WORKSPACE/gluon/
+      working-directory: gluon/
       env:
         GLUON_BRANCH: "master"
         GLUON_TARGET: "ar71xx-generic"
