@@ -38,7 +38,11 @@ jobs:
       working-directory: gluon/
   
     - name: Run gluon build
-      run: make -j2
+      run: |
+       for TARGET in $(make list-targets); do
+       make GLUON_TARGET=$TARGET -j2
+       done;
+
       working-directory: gluon/
     
     - name: Upload images
