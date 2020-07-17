@@ -46,18 +46,6 @@ GLUON_SITE_PACKAGES := iwinfo #\
 #	gluon-banner \
 #	gluon-ssid-changer
 
-#ifeq ($(GLUON_TARGET),x86-generic)
-# support the usb stack on x86 devices
-# and add a few common USB NICs
-#GLUON_SITE_PACKAGES += \
-#	kmod-usb-core \
-#	kmod-usb2 \
-#	kmod-usb-hid \
-#	kmod-usb-net \
-#	kmod-usb-net-asix \
-#	kmod-usb-net-dm9601-ether
-#endif
-
 ##	DEFAULT_GLUON_RELEASE
 #		version string to use for images
 #		gluon relies on
@@ -75,7 +63,6 @@ DEFAULT_GLUON_RELEASE := XX+exp$(shell date '+%Y%m%d')
 
 GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
-
 ## GLUON_REGION
 # 		Set Gluon Region
 GLUON_REGION  := eu
@@ -87,5 +74,4 @@ GLUON_PRIORITY ?= 0
 # Languages to include
 GLUON_LANGS ?= en de
 
-#GLUON_ATH10K_MESH ?= 11s
-GLUON_DEPRECATED=upgrade
+GLUON_DEPRECATED ?= upgrade
