@@ -24,7 +24,6 @@ GLUON_SITE_PACKAGES := \
 	gluon-status-page \
 	iwinfo \
 	iptables \
-	haveged \
 	gluon-web-private-wifi \
 	gluon-banner \
 	gluon-ssid-changer
