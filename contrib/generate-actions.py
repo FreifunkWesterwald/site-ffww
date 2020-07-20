@@ -4,7 +4,7 @@ import sys
 
 ACTIONS_HEAD = """
 # Update this file after adding/removing/renaming a target by running
-# `make list-targets | ./contrib/generate-actions.py > ./.github/workflows/build-gluon.yml`
+# `cd gluon/ && GLUON_SITEDIR=../ make list-targets | ../contrib/generate-actions.py > ../.github/workflows/build-gluon.yml`
 name: Build Gluon
 on:
   push:
