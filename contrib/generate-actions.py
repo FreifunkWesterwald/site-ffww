@@ -28,7 +28,9 @@ ACTIONS_TARGET="""
 
       - name: Get Previous tag
         id: previoustag
-        run: echo ::set-output name=tag::$(git rev-list --tags --max-count=1 | xargs git describe --tags)
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Get next minor version
         id: semvers
