@@ -5,7 +5,7 @@ name: Build Gluon
 on:
   push:
     branches:
-      - build
+      - master
 jobs:
 
   ar71xx-generic:
@@ -19,8 +19,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-generic
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -46,8 +67,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-tiny
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -73,8 +115,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-nand
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -100,8 +163,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ath79-generic
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -127,8 +211,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh brcm2708-bcm2708
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -154,8 +259,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh brcm2708-bcm2709
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -181,8 +307,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ipq40xx-generic
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -208,8 +355,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ipq806x-generic
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -235,8 +403,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh lantiq-xrx200
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -262,8 +451,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh lantiq-xway
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -289,8 +499,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh mpc85xx-generic
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -316,8 +547,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh mpc85xx-p1020
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -343,8 +595,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt7620
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -370,8 +643,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt7621
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -397,8 +691,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt76x8
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -424,8 +739,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh ramips-rt305x
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -451,8 +787,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh sunxi-cortexa7
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -478,8 +835,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh x86-generic
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -505,8 +883,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh x86-geode
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -532,8 +931,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh x86-legacy
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
@@ -559,8 +979,29 @@ jobs:
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo "::set-env name=GLUON_BRANCH::master"
+
+      - name: Get Previous tag
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
+        env:
+          GITHUB_TOKEN: "${ secrets.GITHUB_TOKEN }"
+
+      - name: Get next minor version
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${ steps.previoustag.outputs.tag }
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        env:
+          BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
       - name: Build
         run: contrib/actions/run-build.sh x86-64
+        env:
 
       - name: Archive build logs
         if: ${{ !cancelled() }}
