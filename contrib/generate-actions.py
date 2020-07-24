@@ -23,10 +23,7 @@ ACTIONS_TARGET="""
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -46,6 +43,9 @@ ACTIONS_TARGET="""
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}+${{GLUON_BRANCH:-master}}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh {target_name}

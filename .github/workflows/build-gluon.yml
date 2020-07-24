@@ -16,10 +16,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -39,6 +36,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-generic
@@ -63,10 +63,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -86,6 +83,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-tiny
@@ -110,10 +110,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -133,6 +130,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-nand
@@ -157,10 +157,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -180,6 +177,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ath79-generic
@@ -204,10 +204,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -227,6 +224,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh brcm2708-bcm2708
@@ -251,10 +251,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -274,6 +271,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh brcm2708-bcm2709
@@ -298,10 +298,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -321,6 +318,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ipq40xx-generic
@@ -345,10 +345,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -368,6 +365,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ipq806x-generic
@@ -392,10 +392,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -415,6 +412,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh lantiq-xrx200
@@ -439,10 +439,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -462,6 +459,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh lantiq-xway
@@ -486,10 +486,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -509,6 +506,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh mpc85xx-generic
@@ -533,10 +533,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -556,6 +553,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh mpc85xx-p1020
@@ -580,10 +580,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -603,6 +600,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt7620
@@ -627,10 +627,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -650,6 +647,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt7621
@@ -674,10 +674,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -697,6 +694,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt76x8
@@ -721,10 +721,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -744,6 +741,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh ramips-rt305x
@@ -768,10 +768,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -791,6 +788,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh sunxi-cortexa7
@@ -815,10 +815,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -838,6 +835,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh x86-generic
@@ -862,10 +862,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -885,6 +882,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh x86-geode
@@ -909,10 +909,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -932,6 +929,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh x86-legacy
@@ -956,10 +956,7 @@ jobs:
       
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
+        
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
@@ -979,6 +976,9 @@ jobs:
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
           BUILD_VERSION: ${ steps.semvers.outputs.patch }
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
         run: contrib/actions/run-build.sh x86-64
