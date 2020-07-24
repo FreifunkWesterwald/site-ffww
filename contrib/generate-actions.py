@@ -27,9 +27,6 @@ ACTIONS_TARGET="""
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
 
-      - name: Set GLUON_BRANCH environment variable
-        run: echo "::set-env name=GLUON_BRANCH::master"
-
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@0.2.0"
@@ -44,7 +41,7 @@ ACTIONS_TARGET="""
 
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
-        
+
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}+${{GLUON_BRANCH:-master}}$(date '+%Y%m%d%H%M')
         env:
