@@ -10,6 +10,7 @@ name: Build Gluon
 on:
   push:
     branches:
+      - build
       - master
 jobs:
 """
