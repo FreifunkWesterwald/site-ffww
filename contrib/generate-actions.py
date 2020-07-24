@@ -29,8 +29,6 @@ ACTIONS_TARGET="""
       - name: Get Previous tag
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
-        env:
-          GITHUB_TOKEN: "${{{{ secrets.GITHUB_TOKEN }}}}"
 
       - name: Get next minor version
         id: semvers
