@@ -30,13 +30,13 @@ ACTIONS_TARGET="""
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@master"
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{{{ secrets.GITHUB_TOKEN }}}}"
 
       - name: Get next minor version
         id: semvers
         uses: "WyriHaximus/github-action-next-semvers@v1"
         with:
-          version: ${{ steps.previoustag.outputs.tag }}
+          version: ${{{{ steps.previoustag.outputs.tag }}}
 
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
@@ -44,7 +44,7 @@ ACTIONS_TARGET="""
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}+${{GLUON_BRANCH:-master}}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{{{ steps.semvers.outputs.patch }}}}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
