@@ -23,6 +23,8 @@ ACTIONS_TARGET="""
       
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Get Previous tag
         id: previoustag
