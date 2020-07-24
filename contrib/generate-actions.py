@@ -42,6 +42,9 @@ ACTIONS_TARGET="""
         with:
           version: ${{ steps.previoustag.outputs.tag }}
 
+      - name: Set GLUON_BRANCH environment variable
+        run: echo ::set-env name=GLUON_BRANCH::master
+        
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}+${{GLUON_BRANCH:-master}}$(date '+%Y%m%d%H%M')
         env:
@@ -49,7 +52,6 @@ ACTIONS_TARGET="""
 
       - name: Build
         run: contrib/actions/run-build.sh {target_name}
-        env:
 
       - name: Archive build logs
         if: ${{{{ !cancelled() }}}}
