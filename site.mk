@@ -74,4 +74,4 @@ GLUON_PRIORITY ?= 0
 # Languages to include
 GLUON_LANGS ?= en de
 
-GLUON_DEPRECATED ?= upgrade
+GLUON_DEPRECATED ?= 0
