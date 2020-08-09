@@ -56,53 +56,6 @@ jobs:
           name: ar71xx-generic_output
           path: gluon/output
 
-  ar71xx-tiny:
-    name: ar71xx-tiny
-    runs-on: ubuntu-latest
-    steps:
-      
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::master
-
-      - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
-        env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
-      - name: Build
-        run: contrib/actions/run-build.sh ar71xx-tiny
-
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ar71xx-tiny_logs
-          path: gluon/openwrt/logs
-
-      - name: Archive build output
-        uses: actions/upload-artifact@v2
-        with:
-          name: ar71xx-tiny_output
-          path: gluon/output
-
   ar71xx-nand:
     name: ar71xx-nand
     runs-on: ubuntu-latest
