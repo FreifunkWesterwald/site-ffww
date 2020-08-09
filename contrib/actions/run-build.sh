@@ -20,3 +20,4 @@ Target(s): $GLUON_TARGET
 
 make update
 make -j2 V=s
+make manifest
