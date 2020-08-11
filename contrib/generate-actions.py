@@ -16,11 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+      tag_name: ${{ steps.tag_name.outputs.tag_name }}
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-env name=tag_name::$(echo ${{ github.ref }} | sed 's!refs/tags/!!')
+        
       - name: Check if this is an unstable release
         id: check_unstable
         run: |
-         if [[ ${{ github.ref }} =~ ^unstable ]]; then
+         if [[ ${{ steps.tag_name.outputs.tag_name }} =~ ^unstable ]]; then
            echo ::set-env name=unstable_release::true
          else 
            echo ::set-env name=unstable_release::false
@@ -33,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ steps.tag_name.outputs.tag_name }}
           draft: false
           prerelease: ${{ steps.check_unstable.unstable_release }}
 """
@@ -56,7 +61,7 @@ ACTIONS_TARGET="""
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}+${{GLUON_BRANCH:-master}}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{{{ github.ref }}}}
+          BUILD_VERSION: ${{{{ needs.create-release.outputs.tag_name }}}}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
