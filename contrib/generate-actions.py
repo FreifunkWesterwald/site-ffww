@@ -20,15 +20,15 @@ jobs:
     steps:
       - name: Compute tag name
         id: tag_name
-        run: echo ::set-env name=tag_name::$(echo ${{ github.ref }} | sed 's!refs/tags/!!')
+        run: echo ::set-output name=tag_name::$(echo ${{ github.ref }} | sed 's!refs/tags/!!')
         
       - name: Check if this is an unstable release
         id: check_unstable
         run: |
-         if [[ ${{ steps.tag_name.tag_name }} =~ ^unstable ]]; then
-           echo ::set-env name=unstable_release::true
+         if [[ ${{ steps.tag_name.output.tag_name }} =~ ^unstable ]]; then
+           echo ::set-output name=unstable_release::true
          else 
-           echo ::set-env name=unstable_release::false
+           echo ::set-output name=unstable_release::false
          fi
           
       - name: Create Release
@@ -38,9 +38,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.tag_name.tag_name }}
+          release_name: Release ${{ steps.tag_name.output.tag_name }}
           draft: false
-          prerelease: ${{ steps.check_unstable.unstable_release }}
+          prerelease: ${{ steps.check_unstable.output.unstable_release }}
 """
 
 ACTIONS_TARGET="""
