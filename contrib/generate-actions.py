@@ -15,24 +15,24 @@ jobs:
   create-release:
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
-  steps:
-    - name: Check if this is an unstable release
-      id: check_unstable
-      run: |
-       if [[ ${{ github.ref }} =~ ^unstable ]]; then
-         echo ::set-env name=unstable_release::true
-       else 
-         echo ::set-env name=unstable_release::false
-       fi
-        
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: ${{ steps.check_unstable.unstable_release }}
+    steps:
+      - name: Check if this is an unstable release
+        id: check_unstable
+        run: |
+         if [[ ${{ github.ref }} =~ ^unstable ]]; then
+           echo ::set-env name=unstable_release::true
+         else 
+           echo ::set-env name=unstable_release::false
+         fi
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: ${{ steps.check_unstable.unstable_release }}
 """
 
 ACTIONS_TARGET="""
