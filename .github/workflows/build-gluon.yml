@@ -76,7 +76,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ar71xx-generic.tar.zst -C gluon/output .
+        run: tar cJf ar71xx-generic.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -85,9 +85,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ar71xx-generic.tar.zst
-          asset_name: ar71xx-generic.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ar71xx-generic.tar.xz
+          asset_name: ar71xx-generic.tar.xz
+          asset_content_type: application/x-xz
 
   ar71xx-nand:
     name: ar71xx-nand
@@ -128,7 +128,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ar71xx-nand.tar.zst -C gluon/output .
+        run: tar cJf ar71xx-nand.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -137,9 +137,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ar71xx-nand.tar.zst
-          asset_name: ar71xx-nand.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ar71xx-nand.tar.xz
+          asset_name: ar71xx-nand.tar.xz
+          asset_content_type: application/x-xz
 
   ath79-generic:
     name: ath79-generic
@@ -180,7 +180,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ath79-generic.tar.zst -C gluon/output .
+        run: tar cJf ath79-generic.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -189,9 +189,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ath79-generic.tar.zst
-          asset_name: ath79-generic.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ath79-generic.tar.xz
+          asset_name: ath79-generic.tar.xz
+          asset_content_type: application/x-xz
 
   brcm2708-bcm2708:
     name: brcm2708-bcm2708
@@ -232,7 +232,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf brcm2708-bcm2708.tar.zst -C gluon/output .
+        run: tar cJf brcm2708-bcm2708.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -241,9 +241,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./brcm2708-bcm2708.tar.zst
-          asset_name: brcm2708-bcm2708.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./brcm2708-bcm2708.tar.xz
+          asset_name: brcm2708-bcm2708.tar.xz
+          asset_content_type: application/x-xz
 
   brcm2708-bcm2709:
     name: brcm2708-bcm2709
@@ -284,7 +284,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf brcm2708-bcm2709.tar.zst -C gluon/output .
+        run: tar cJf brcm2708-bcm2709.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -293,9 +293,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./brcm2708-bcm2709.tar.zst
-          asset_name: brcm2708-bcm2709.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./brcm2708-bcm2709.tar.xz
+          asset_name: brcm2708-bcm2709.tar.xz
+          asset_content_type: application/x-xz
 
   ipq40xx-generic:
     name: ipq40xx-generic
@@ -336,7 +336,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ipq40xx-generic.tar.zst -C gluon/output .
+        run: tar cJf ipq40xx-generic.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -345,9 +345,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ipq40xx-generic.tar.zst
-          asset_name: ipq40xx-generic.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ipq40xx-generic.tar.xz
+          asset_name: ipq40xx-generic.tar.xz
+          asset_content_type: application/x-xz
 
   ipq806x-generic:
     name: ipq806x-generic
@@ -388,7 +388,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ipq806x-generic.tar.zst -C gluon/output .
+        run: tar cJf ipq806x-generic.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -397,9 +397,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ipq806x-generic.tar.zst
-          asset_name: ipq806x-generic.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ipq806x-generic.tar.xz
+          asset_name: ipq806x-generic.tar.xz
+          asset_content_type: application/x-xz
 
   lantiq-xrx200:
     name: lantiq-xrx200
@@ -440,7 +440,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf lantiq-xrx200.tar.zst -C gluon/output .
+        run: tar cJf lantiq-xrx200.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -449,9 +449,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./lantiq-xrx200.tar.zst
-          asset_name: lantiq-xrx200.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./lantiq-xrx200.tar.xz
+          asset_name: lantiq-xrx200.tar.xz
+          asset_content_type: application/x-xz
 
   lantiq-xway:
     name: lantiq-xway
@@ -492,7 +492,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf lantiq-xway.tar.zst -C gluon/output .
+        run: tar cJf lantiq-xway.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -501,9 +501,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./lantiq-xway.tar.zst
-          asset_name: lantiq-xway.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./lantiq-xway.tar.xz
+          asset_name: lantiq-xway.tar.xz
+          asset_content_type: application/x-xz
 
   mpc85xx-generic:
     name: mpc85xx-generic
@@ -544,7 +544,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf mpc85xx-generic.tar.zst -C gluon/output .
+        run: tar cJf mpc85xx-generic.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -553,9 +553,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./mpc85xx-generic.tar.zst
-          asset_name: mpc85xx-generic.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./mpc85xx-generic.tar.xz
+          asset_name: mpc85xx-generic.tar.xz
+          asset_content_type: application/x-xz
 
   mpc85xx-p1020:
     name: mpc85xx-p1020
@@ -596,7 +596,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf mpc85xx-p1020.tar.zst -C gluon/output .
+        run: tar cJf mpc85xx-p1020.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -605,9 +605,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./mpc85xx-p1020.tar.zst
-          asset_name: mpc85xx-p1020.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./mpc85xx-p1020.tar.xz
+          asset_name: mpc85xx-p1020.tar.xz
+          asset_content_type: application/x-xz
 
   ramips-mt7620:
     name: ramips-mt7620
@@ -648,7 +648,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ramips-mt7620.tar.zst -C gluon/output .
+        run: tar cJf ramips-mt7620.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -657,9 +657,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ramips-mt7620.tar.zst
-          asset_name: ramips-mt7620.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ramips-mt7620.tar.xz
+          asset_name: ramips-mt7620.tar.xz
+          asset_content_type: application/x-xz
 
   ramips-mt7621:
     name: ramips-mt7621
@@ -700,7 +700,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ramips-mt7621.tar.zst -C gluon/output .
+        run: tar cJf ramips-mt7621.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -709,9 +709,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ramips-mt7621.tar.zst
-          asset_name: ramips-mt7621.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ramips-mt7621.tar.xz
+          asset_name: ramips-mt7621.tar.xz
+          asset_content_type: application/x-xz
 
   ramips-mt76x8:
     name: ramips-mt76x8
@@ -752,7 +752,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ramips-mt76x8.tar.zst -C gluon/output .
+        run: tar cJf ramips-mt76x8.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -761,9 +761,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ramips-mt76x8.tar.zst
-          asset_name: ramips-mt76x8.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ramips-mt76x8.tar.xz
+          asset_name: ramips-mt76x8.tar.xz
+          asset_content_type: application/x-xz
 
   ramips-rt305x:
     name: ramips-rt305x
@@ -804,7 +804,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf ramips-rt305x.tar.zst -C gluon/output .
+        run: tar cJf ramips-rt305x.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -813,9 +813,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./ramips-rt305x.tar.zst
-          asset_name: ramips-rt305x.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./ramips-rt305x.tar.xz
+          asset_name: ramips-rt305x.tar.xz
+          asset_content_type: application/x-xz
 
   sunxi-cortexa7:
     name: sunxi-cortexa7
@@ -856,7 +856,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf sunxi-cortexa7.tar.zst -C gluon/output .
+        run: tar cJf sunxi-cortexa7.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -865,9 +865,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./sunxi-cortexa7.tar.zst
-          asset_name: sunxi-cortexa7.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./sunxi-cortexa7.tar.xz
+          asset_name: sunxi-cortexa7.tar.xz
+          asset_content_type: application/x-xz
 
   x86-generic:
     name: x86-generic
@@ -908,7 +908,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf x86-generic.tar.zst -C gluon/output .
+        run: tar cJf x86-generic.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -917,9 +917,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./x86-generic.tar.zst
-          asset_name: x86-generic.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./x86-generic.tar.xz
+          asset_name: x86-generic.tar.xz
+          asset_content_type: application/x-xz
 
   x86-geode:
     name: x86-geode
@@ -960,7 +960,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf x86-geode.tar.zst -C gluon/output .
+        run: tar cJf x86-geode.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -969,9 +969,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./x86-geode.tar.zst
-          asset_name: x86-geode.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./x86-geode.tar.xz
+          asset_name: x86-geode.tar.xz
+          asset_content_type: application/x-xz
 
   x86-legacy:
     name: x86-legacy
@@ -1012,7 +1012,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf x86-legacy.tar.zst -C gluon/output .
+        run: tar cJf x86-legacy.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -1021,9 +1021,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./x86-legacy.tar.zst
-          asset_name: x86-legacy.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./x86-legacy.tar.xz
+          asset_name: x86-legacy.tar.xz
+          asset_content_type: application/x-xz
 
   x86-64:
     name: x86-64
@@ -1064,7 +1064,7 @@ jobs:
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf x86-64.tar.zst -C gluon/output .
+        run: tar cJf x86-64.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -1073,7 +1073,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
-          asset_path: ./x86-64.tar.zst
-          asset_name: x86-64.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./x86-64.tar.xz
+          asset_name: x86-64.tar.xz
+          asset_content_type: application/x-xz
 

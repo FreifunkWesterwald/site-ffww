@@ -83,7 +83,7 @@ ACTIONS_TARGET="""
           path: gluon/output
       
       - name: build-tar
-        run: tar --zstd -cf {target_name}.tar.zst -C gluon/output .
+        run: tar cJf {target_name}.tar.xz -C gluon/output .
       
       - name: Upload Release Asset
         id: upload-release-asset 
@@ -92,9 +92,9 @@ ACTIONS_TARGET="""
           GITHUB_TOKEN: ${{{{ secrets.GITHUB_TOKEN }}}}
         with:
           upload_url: ${{{{ needs.create-release.outputs.upload_url }}}} 
-          asset_path: ./{target_name}.tar.zst
-          asset_name: {target_name}.tar.zst
-          asset_content_type: application/zstd
+          asset_path: ./{target_name}.tar.xz
+          asset_name: {target_name}.tar.xz
+          asset_content_type: application/x-xz
 """
 
 output = ACTIONS_HEAD
