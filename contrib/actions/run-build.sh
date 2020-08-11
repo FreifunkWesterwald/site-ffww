@@ -6,7 +6,6 @@ export GLUON_BRANCH=${GLUON_BRANCH:-master}
 export GLUON_TARGET=$1
 
 export GLUON_SITEDIR=../
-export BUILD_LOG=1
 export GLUON_AUTOREMOVE=1
 
 echo "
@@ -18,6 +17,16 @@ Branch:    $GLUON_BRANCH
 Target(s): $GLUON_TARGET
 "
 
+if [ -z "$MAKE_PARALLEL" ]; then
+   MAKE_PARALLEL="2"
+fi
+MAKE_OPTS="$MAKE_OPTS -j$MAKE_PARALLEL"
+
+if [ -z "$VERBOSE" ]; then
+  export BUILD_LOG=1
+  MAKE_OPTS="$MAKE_OPTS V=s"
+fi
+
 make update
-make -j2 V=s
+make $MAKE_OPTS
 make manifest
