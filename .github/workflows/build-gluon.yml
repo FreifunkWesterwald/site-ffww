@@ -24,6 +24,8 @@ jobs:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
@@ -74,6 +76,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ar71xx-generic.tar.zst
@@ -124,6 +128,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ar71xx-nand.tar.zst
@@ -174,6 +180,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ath79-generic.tar.zst
@@ -224,6 +232,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./brcm2708-bcm2708.tar.zst
@@ -274,6 +284,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./brcm2708-bcm2709.tar.zst
@@ -324,6 +336,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ipq40xx-generic.tar.zst
@@ -374,6 +388,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ipq806x-generic.tar.zst
@@ -424,6 +440,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./lantiq-xrx200.tar.zst
@@ -474,6 +492,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./lantiq-xway.tar.zst
@@ -524,6 +544,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./mpc85xx-generic.tar.zst
@@ -574,6 +596,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./mpc85xx-p1020.tar.zst
@@ -624,6 +648,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ramips-mt7620.tar.zst
@@ -674,6 +700,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ramips-mt7621.tar.zst
@@ -724,6 +752,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ramips-mt76x8.tar.zst
@@ -774,6 +804,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./ramips-rt305x.tar.zst
@@ -824,6 +856,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./sunxi-cortexa7.tar.zst
@@ -874,6 +908,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./x86-generic.tar.zst
@@ -924,6 +960,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./x86-geode.tar.zst
@@ -974,6 +1012,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./x86-legacy.tar.zst
@@ -1024,6 +1064,8 @@ jobs:
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create-release.outputs.upload_url }} 
           asset_path: ./x86-64.tar.zst

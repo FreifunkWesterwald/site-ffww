@@ -29,6 +29,8 @@ jobs:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
@@ -81,6 +83,8 @@ ACTIONS_TARGET="""
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{{{ secrets.GITHUB_TOKEN }}}}
         with:
           upload_url: ${{{{ needs.create-release.outputs.upload_url }}}} 
           asset_path: ./{target_name}.tar.zst
