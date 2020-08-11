@@ -13,6 +13,7 @@ on:
       - '*'
 jobs:
   create-release:
+    runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
