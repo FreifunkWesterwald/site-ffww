@@ -5,8 +5,8 @@ name: Build Gluon
 on:
   push:
     branches:
-      - build
-      - master
+      - stable
+      - unstable
 jobs:
 
   ar71xx-generic:
