@@ -25,7 +25,7 @@ jobs:
       - name: Check if this is an unstable release
         id: check_unstable
         run: |
-         if [[ ${{ steps.tag_name.output.tag_name }} =~ ^unstable ]]; then
+         if [[ ${{ steps.tag_name.outputs.tag_name }} =~ ^unstable ]]; then
            echo ::set-output name=unstable_release::true
          else 
            echo ::set-output name=unstable_release::false
@@ -38,9 +38,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.tag_name.output.tag_name }}
+          release_name: Release ${{ steps.tag_name.outputs.tag_name }}
           draft: false
-          prerelease: ${{ steps.check_unstable.output.unstable_release }}
+          prerelease: ${{ steps.check_unstable.outputs.unstable_release }}
 """
 
 ACTIONS_TARGET="""
