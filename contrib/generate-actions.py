@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
-      tag_name: ${{ steps.tag_name.tag_name }}
+      tag_name: ${{ steps.tag_name.outputs.tag_name }}
     steps:
       - name: Compute tag name
         id: tag_name
