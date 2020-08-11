@@ -76,7 +76,7 @@ ACTIONS_TARGET="""
       - name: build-tar
         run: tar --zstd -cf {target_name}.tar.zst -C gluon/output .
       
-	  - name: Upload Release Asset
+      - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
         with:
