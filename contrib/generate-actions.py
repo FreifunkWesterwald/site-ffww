@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
-      tag_name: ${{ steps.tag_name.outputs.tag_name }}
+      tag_name: ${{ steps.tag_name.tag_name }}
     steps:
       - name: Compute tag name
         id: tag_name
@@ -25,7 +25,7 @@ jobs:
       - name: Check if this is an unstable release
         id: check_unstable
         run: |
-         if [[ ${{ steps.tag_name.outputs.tag_name }} =~ ^unstable ]]; then
+         if [[ ${{ steps.tag_name.tag_name }} =~ ^unstable ]]; then
            echo ::set-env name=unstable_release::true
          else 
            echo ::set-env name=unstable_release::false
@@ -38,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.tag_name.outputs.tag_name }}
+          release_name: Release ${{ steps.tag_name.tag_name }}
           draft: false
           prerelease: ${{ steps.check_unstable.unstable_release }}
 """
