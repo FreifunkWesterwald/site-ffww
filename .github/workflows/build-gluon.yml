@@ -10,6 +10,7 @@ jobs:
   create-release:
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+  steps:
     - name: Check if this is an unstable release
       id: check_unstable
       run: |
