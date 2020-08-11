@@ -4,14 +4,34 @@
 name: Build Gluon
 on:
   push:
-    branches:
-      - stable
-      - unstable
+    tags:
+      - '*'
 jobs:
+  create-release:
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    - name: Check if this is an unstable release
+      id: check_unstable
+      run: |
+       if [[ ${{ github.ref }} =~ ^unstable ]]; then
+         echo ::set-env name=unstable_release::true
+       else 
+         echo ::set-env name=unstable_release::false
+       fi
+        
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: ${{ steps.check_unstable.unstable_release }}
 
   ar71xx-generic:
     name: ar71xx-generic
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -19,23 +39,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -55,10 +65,23 @@ jobs:
         with:
           name: ar71xx-generic_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ar71xx-generic.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ar71xx-generic.tar.zst
+          asset_name: ar71xx-generic.tar.zst
+          asset_content_type: application/zstd
 
   ar71xx-nand:
     name: ar71xx-nand
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -66,23 +89,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -102,10 +115,23 @@ jobs:
         with:
           name: ar71xx-nand_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ar71xx-nand.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ar71xx-nand.tar.zst
+          asset_name: ar71xx-nand.tar.zst
+          asset_content_type: application/zstd
 
   ath79-generic:
     name: ath79-generic
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -113,23 +139,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -149,10 +165,23 @@ jobs:
         with:
           name: ath79-generic_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ath79-generic.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ath79-generic.tar.zst
+          asset_name: ath79-generic.tar.zst
+          asset_content_type: application/zstd
 
   brcm2708-bcm2708:
     name: brcm2708-bcm2708
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -160,23 +189,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -196,10 +215,23 @@ jobs:
         with:
           name: brcm2708-bcm2708_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf brcm2708-bcm2708.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./brcm2708-bcm2708.tar.zst
+          asset_name: brcm2708-bcm2708.tar.zst
+          asset_content_type: application/zstd
 
   brcm2708-bcm2709:
     name: brcm2708-bcm2709
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -207,23 +239,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -243,10 +265,23 @@ jobs:
         with:
           name: brcm2708-bcm2709_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf brcm2708-bcm2709.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./brcm2708-bcm2709.tar.zst
+          asset_name: brcm2708-bcm2709.tar.zst
+          asset_content_type: application/zstd
 
   ipq40xx-generic:
     name: ipq40xx-generic
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -254,23 +289,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -290,10 +315,23 @@ jobs:
         with:
           name: ipq40xx-generic_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ipq40xx-generic.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ipq40xx-generic.tar.zst
+          asset_name: ipq40xx-generic.tar.zst
+          asset_content_type: application/zstd
 
   ipq806x-generic:
     name: ipq806x-generic
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -301,23 +339,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -337,10 +365,23 @@ jobs:
         with:
           name: ipq806x-generic_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ipq806x-generic.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ipq806x-generic.tar.zst
+          asset_name: ipq806x-generic.tar.zst
+          asset_content_type: application/zstd
 
   lantiq-xrx200:
     name: lantiq-xrx200
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -348,23 +389,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -384,10 +415,23 @@ jobs:
         with:
           name: lantiq-xrx200_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf lantiq-xrx200.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./lantiq-xrx200.tar.zst
+          asset_name: lantiq-xrx200.tar.zst
+          asset_content_type: application/zstd
 
   lantiq-xway:
     name: lantiq-xway
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -395,23 +439,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -431,10 +465,23 @@ jobs:
         with:
           name: lantiq-xway_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf lantiq-xway.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./lantiq-xway.tar.zst
+          asset_name: lantiq-xway.tar.zst
+          asset_content_type: application/zstd
 
   mpc85xx-generic:
     name: mpc85xx-generic
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -442,23 +489,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -478,10 +515,23 @@ jobs:
         with:
           name: mpc85xx-generic_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf mpc85xx-generic.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./mpc85xx-generic.tar.zst
+          asset_name: mpc85xx-generic.tar.zst
+          asset_content_type: application/zstd
 
   mpc85xx-p1020:
     name: mpc85xx-p1020
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -489,23 +539,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -525,10 +565,23 @@ jobs:
         with:
           name: mpc85xx-p1020_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf mpc85xx-p1020.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./mpc85xx-p1020.tar.zst
+          asset_name: mpc85xx-p1020.tar.zst
+          asset_content_type: application/zstd
 
   ramips-mt7620:
     name: ramips-mt7620
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -536,23 +589,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -572,10 +615,23 @@ jobs:
         with:
           name: ramips-mt7620_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ramips-mt7620.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ramips-mt7620.tar.zst
+          asset_name: ramips-mt7620.tar.zst
+          asset_content_type: application/zstd
 
   ramips-mt7621:
     name: ramips-mt7621
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -583,23 +639,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -619,10 +665,23 @@ jobs:
         with:
           name: ramips-mt7621_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ramips-mt7621.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ramips-mt7621.tar.zst
+          asset_name: ramips-mt7621.tar.zst
+          asset_content_type: application/zstd
 
   ramips-mt76x8:
     name: ramips-mt76x8
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -630,23 +689,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -666,10 +715,23 @@ jobs:
         with:
           name: ramips-mt76x8_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ramips-mt76x8.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ramips-mt76x8.tar.zst
+          asset_name: ramips-mt76x8.tar.zst
+          asset_content_type: application/zstd
 
   ramips-rt305x:
     name: ramips-rt305x
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -677,23 +739,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -713,10 +765,23 @@ jobs:
         with:
           name: ramips-rt305x_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf ramips-rt305x.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./ramips-rt305x.tar.zst
+          asset_name: ramips-rt305x.tar.zst
+          asset_content_type: application/zstd
 
   sunxi-cortexa7:
     name: sunxi-cortexa7
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -724,23 +789,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -760,10 +815,23 @@ jobs:
         with:
           name: sunxi-cortexa7_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf sunxi-cortexa7.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./sunxi-cortexa7.tar.zst
+          asset_name: sunxi-cortexa7.tar.zst
+          asset_content_type: application/zstd
 
   x86-generic:
     name: x86-generic
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -771,23 +839,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -807,10 +865,23 @@ jobs:
         with:
           name: x86-generic_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf x86-generic.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./x86-generic.tar.zst
+          asset_name: x86-generic.tar.zst
+          asset_content_type: application/zstd
 
   x86-geode:
     name: x86-geode
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -818,23 +889,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -854,10 +915,23 @@ jobs:
         with:
           name: x86-geode_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf x86-geode.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./x86-geode.tar.zst
+          asset_name: x86-geode.tar.zst
+          asset_content_type: application/zstd
 
   x86-legacy:
     name: x86-legacy
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -865,23 +939,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -901,10 +965,23 @@ jobs:
         with:
           name: x86-legacy_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf x86-legacy.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./x86-legacy.tar.zst
+          asset_name: x86-legacy.tar.zst
+          asset_content_type: application/zstd
 
   x86-64:
     name: x86-64
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -912,23 +989,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{ steps.semvers.outputs.patch }}
+          BUILD_VERSION: ${{ github.ref }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -948,4 +1015,16 @@ jobs:
         with:
           name: x86-64_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf x86-64.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          asset_path: ./x86-64.tar.zst
+          asset_name: x86-64.tar.zst
+          asset_content_type: application/zstd
 

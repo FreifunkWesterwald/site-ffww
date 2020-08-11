@@ -9,16 +9,36 @@ ACTIONS_HEAD = """
 name: Build Gluon
 on:
   push:
-    branches:
-      - build
-      - master
+    tags:
+      - '*'
 jobs:
+  create-release:
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    - name: Check if this is an unstable release
+      id: check_unstable
+      run: |
+       if [[ ${{ github.ref }} =~ ^unstable ]]; then
+         echo ::set-env name=unstable_release::true
+       else 
+         echo ::set-env name=unstable_release::false
+       fi
+        
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: ${{ steps.check_unstable.unstable_release }}
 """
 
 ACTIONS_TARGET="""
   {target_name}:
     name: {target_name}
     runs-on: ubuntu-latest
+    needs: create-release
     steps:
       
       - name: Checkout repository
@@ -26,23 +46,13 @@ ACTIONS_TARGET="""
         with:
           fetch-depth: 0
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
-
-      - name: Get next minor version
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{{{ steps.previoustag.outputs.tag }}}}
-
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}+${{GLUON_BRANCH:-master}}$(date '+%Y%m%d%H%M')
         env:
-          BUILD_VERSION: ${{{{ steps.semvers.outputs.patch }}}}
+          BUILD_VERSION: ${{{{ github.ref }}}}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -62,10 +72,22 @@ ACTIONS_TARGET="""
         with:
           name: {target_name}_output
           path: gluon/output
+      
+      - name: build-tar
+        run: tar --zstd -cf {target_name}.tar.zst -C gluon/output .
+      
+	  - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{{{ needs.create-release.outputs.upload_url }}}} 
+          asset_path: ./{target_name}.tar.zst
+          asset_name: {target_name}.tar.zst
+          asset_content_type: application/zstd
 """
 
 output = ACTIONS_HEAD
 
 for target in sys.stdin:
-	output += ACTIONS_TARGET.format(target_name=target.strip())
+    output += ACTIONS_TARGET.format(target_name=target.strip())
 print(output)
