@@ -22,7 +22,7 @@ if [ -z "$MAKE_PARALLEL" ]; then
 fi
 MAKE_OPTS="$MAKE_OPTS -j$MAKE_PARALLEL"
 
-if [ -z "$VERBOSE" ]; then
+if [ ! -z "$VERBOSE" ]; then
   export BUILD_LOG=1
   MAKE_OPTS="$MAKE_OPTS V=s"
 fi
