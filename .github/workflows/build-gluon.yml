@@ -3,45 +3,17 @@
 # `contrib/list-targets.sh | contrib/generate-actions.py > .github/workflows/build-gluon.yml`
 name: Build Gluon
 on:
-  push:
-    tags:
-      - '*'
-jobs:
-  create-release:
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      tag_name: ${{ steps.tag_name.outputs.tag_name }}
-    steps:
-      - name: Compute tag name
-        id: tag_name
-        run: echo ::set-output name=tag_name::$(echo ${{ github.ref }} | sed 's!refs/tags/!!')
-        
-      - name: Check if this is an unstable release
-        id: check_unstable
-        run: |
-         if [[ ${{ steps.tag_name.outputs.tag_name }} =~ ^unstable ]]; then
-           echo ::set-output name=unstable_release::true
-         else 
-           echo ::set-output name=unstable_release::false
-         fi
-          
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.tag_name.outputs.tag_name }}
-          draft: false
-          prerelease: ${{ steps.check_unstable.outputs.unstable_release }}
+  release:
+    types:
+      - 'published'
 
   ar71xx-generic:
     name: ar71xx-generic
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -52,9 +24,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -62,12 +34,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-generic
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ar71xx-generic_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ar71xx-generic_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -84,7 +57,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ar71xx-generic.tar.xz
           asset_name: ar71xx-generic.tar.xz
           asset_content_type: application/x-xz
@@ -92,8 +65,10 @@ jobs:
   ar71xx-nand:
     name: ar71xx-nand
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -104,9 +79,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -114,12 +89,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ar71xx-nand
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ar71xx-nand_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ar71xx-nand_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -136,7 +112,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ar71xx-nand.tar.xz
           asset_name: ar71xx-nand.tar.xz
           asset_content_type: application/x-xz
@@ -144,8 +120,10 @@ jobs:
   ath79-generic:
     name: ath79-generic
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -156,9 +134,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -166,12 +144,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ath79-generic
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ath79-generic_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ath79-generic_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -188,7 +167,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ath79-generic.tar.xz
           asset_name: ath79-generic.tar.xz
           asset_content_type: application/x-xz
@@ -196,8 +175,10 @@ jobs:
   brcm2708-bcm2708:
     name: brcm2708-bcm2708
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -208,9 +189,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -218,12 +199,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh brcm2708-bcm2708
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: brcm2708-bcm2708_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: brcm2708-bcm2708_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -240,7 +222,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./brcm2708-bcm2708.tar.xz
           asset_name: brcm2708-bcm2708.tar.xz
           asset_content_type: application/x-xz
@@ -248,8 +230,10 @@ jobs:
   brcm2708-bcm2709:
     name: brcm2708-bcm2709
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -260,9 +244,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -270,12 +254,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh brcm2708-bcm2709
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: brcm2708-bcm2709_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: brcm2708-bcm2709_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -292,7 +277,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./brcm2708-bcm2709.tar.xz
           asset_name: brcm2708-bcm2709.tar.xz
           asset_content_type: application/x-xz
@@ -300,8 +285,10 @@ jobs:
   ipq40xx-generic:
     name: ipq40xx-generic
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -312,9 +299,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -322,12 +309,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ipq40xx-generic
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ipq40xx-generic_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ipq40xx-generic_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -344,7 +332,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ipq40xx-generic.tar.xz
           asset_name: ipq40xx-generic.tar.xz
           asset_content_type: application/x-xz
@@ -352,8 +340,10 @@ jobs:
   ipq806x-generic:
     name: ipq806x-generic
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -364,9 +354,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -374,12 +364,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ipq806x-generic
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ipq806x-generic_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ipq806x-generic_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -396,7 +387,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ipq806x-generic.tar.xz
           asset_name: ipq806x-generic.tar.xz
           asset_content_type: application/x-xz
@@ -404,8 +395,10 @@ jobs:
   lantiq-xrx200:
     name: lantiq-xrx200
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -416,9 +409,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -426,12 +419,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh lantiq-xrx200
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: lantiq-xrx200_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: lantiq-xrx200_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -448,7 +442,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./lantiq-xrx200.tar.xz
           asset_name: lantiq-xrx200.tar.xz
           asset_content_type: application/x-xz
@@ -456,8 +450,10 @@ jobs:
   lantiq-xway:
     name: lantiq-xway
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -468,9 +464,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -478,12 +474,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh lantiq-xway
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: lantiq-xway_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: lantiq-xway_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -500,7 +497,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./lantiq-xway.tar.xz
           asset_name: lantiq-xway.tar.xz
           asset_content_type: application/x-xz
@@ -508,8 +505,10 @@ jobs:
   mpc85xx-generic:
     name: mpc85xx-generic
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -520,9 +519,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -530,12 +529,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh mpc85xx-generic
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: mpc85xx-generic_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: mpc85xx-generic_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -552,7 +552,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./mpc85xx-generic.tar.xz
           asset_name: mpc85xx-generic.tar.xz
           asset_content_type: application/x-xz
@@ -560,8 +560,10 @@ jobs:
   mpc85xx-p1020:
     name: mpc85xx-p1020
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -572,9 +574,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -582,12 +584,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh mpc85xx-p1020
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: mpc85xx-p1020_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: mpc85xx-p1020_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -604,7 +607,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./mpc85xx-p1020.tar.xz
           asset_name: mpc85xx-p1020.tar.xz
           asset_content_type: application/x-xz
@@ -612,8 +615,10 @@ jobs:
   ramips-mt7620:
     name: ramips-mt7620
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -624,9 +629,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -634,12 +639,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt7620
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ramips-mt7620_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ramips-mt7620_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -656,7 +662,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ramips-mt7620.tar.xz
           asset_name: ramips-mt7620.tar.xz
           asset_content_type: application/x-xz
@@ -664,8 +670,10 @@ jobs:
   ramips-mt7621:
     name: ramips-mt7621
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -676,9 +684,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -686,12 +694,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt7621
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ramips-mt7621_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ramips-mt7621_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -708,7 +717,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ramips-mt7621.tar.xz
           asset_name: ramips-mt7621.tar.xz
           asset_content_type: application/x-xz
@@ -716,8 +725,10 @@ jobs:
   ramips-mt76x8:
     name: ramips-mt76x8
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -728,9 +739,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -738,12 +749,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ramips-mt76x8
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ramips-mt76x8_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ramips-mt76x8_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -760,7 +772,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ramips-mt76x8.tar.xz
           asset_name: ramips-mt76x8.tar.xz
           asset_content_type: application/x-xz
@@ -768,8 +780,10 @@ jobs:
   ramips-rt305x:
     name: ramips-rt305x
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -780,9 +794,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -790,12 +804,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh ramips-rt305x
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ramips-rt305x_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ramips-rt305x_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -812,7 +827,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./ramips-rt305x.tar.xz
           asset_name: ramips-rt305x.tar.xz
           asset_content_type: application/x-xz
@@ -820,8 +835,10 @@ jobs:
   sunxi-cortexa7:
     name: sunxi-cortexa7
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -832,9 +849,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -842,12 +859,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh sunxi-cortexa7
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: sunxi-cortexa7_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: sunxi-cortexa7_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -864,7 +882,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./sunxi-cortexa7.tar.xz
           asset_name: sunxi-cortexa7.tar.xz
           asset_content_type: application/x-xz
@@ -872,8 +890,10 @@ jobs:
   x86-generic:
     name: x86-generic
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -884,9 +904,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -894,12 +914,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh x86-generic
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: x86-generic_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: x86-generic_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -916,7 +937,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./x86-generic.tar.xz
           asset_name: x86-generic.tar.xz
           asset_content_type: application/x-xz
@@ -924,8 +945,10 @@ jobs:
   x86-geode:
     name: x86-geode
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -936,9 +959,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -946,12 +969,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh x86-geode
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: x86-geode_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: x86-geode_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -968,7 +992,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./x86-geode.tar.xz
           asset_name: x86-geode.tar.xz
           asset_content_type: application/x-xz
@@ -976,8 +1000,10 @@ jobs:
   x86-legacy:
     name: x86-legacy
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -988,9 +1014,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -998,12 +1024,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh x86-legacy
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: x86-legacy_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: x86-legacy_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -1020,7 +1047,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./x86-legacy.tar.xz
           asset_name: x86-legacy.tar.xz
           asset_content_type: application/x-xz
@@ -1028,8 +1055,10 @@ jobs:
   x86-64:
     name: x86-64
     runs-on: ubuntu-latest
-    needs: create-release
     steps:
+      - name: Compute tag name
+        id: tag_name
+        run: echo ::set-output name=tag_name::$(echo ${ github.ref } | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -1040,9 +1069,9 @@ jobs:
         run: echo ::set-env name=GLUON_BRANCH::master
 
       - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}+${GLUON_BRANCH:-master}$(date '+%Y%m%d%H%M')
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
-          BUILD_VERSION: ${{ needs.create-release.outputs.tag_name }}
+          BUILD_VERSION: ${{ steps.tag_name.outputs.tag_name }}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -1050,12 +1079,13 @@ jobs:
       - name: Build
         run: contrib/actions/run-build.sh x86-64
 
-      - name: Archive build logs
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: x86-64_logs
-          path: gluon/openwrt/logs
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: x86-64_logs
+      #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
@@ -1072,7 +1102,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }} 
           asset_path: ./x86-64.tar.xz
           asset_name: x86-64.tar.xz
           asset_content_type: application/x-xz
