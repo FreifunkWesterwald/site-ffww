@@ -11,6 +11,7 @@ on:
   release:
     types:
       - 'published'
+jobs:
 """
 
 ACTIONS_TARGET="""
