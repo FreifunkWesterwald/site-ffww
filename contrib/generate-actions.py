@@ -21,7 +21,7 @@ ACTIONS_TARGET="""
     steps:
       - name: Compute tag name
         id: tag_name
-        run: echo ::set-output name=tag_name::$(echo ${{ github.ref }} | sed 's!refs/tags/!!')
+        run: echo ::set-output name=tag_name::$(echo ${{{{ github.ref }}}} | sed 's!refs/tags/!!')
       
       - name: Checkout repository
         uses: actions/checkout@v2
