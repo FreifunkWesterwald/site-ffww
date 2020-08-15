@@ -28,8 +28,9 @@ ACTIONS_TARGET="""
         with:
           fetch-depth: 0
 
+      # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::master
+        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{{{ github.ref }}}}" =~ "unstable" ]] && echo unstable || echo stable)
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}
