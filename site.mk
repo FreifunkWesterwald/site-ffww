@@ -19,9 +19,9 @@ GLUON_FEATURES := \
 
 ##	GLUON_SITE_PACKAGES
 #		specify gluon/openwrt packages to include here
-GLUON_SITE_PACKAGES := iwinfo #\
+GLUON_SITE_PACKAGES :=\
 #	gluon-respondd \
-#	gluon-autoupdater \
+	gluon-autoupdater \
 #	gluon-config-mode-core \
 #	gluon-config-mode-autoupdater\
 #	gluon-config-mode-hostname \
@@ -38,13 +38,13 @@ GLUON_SITE_PACKAGES := iwinfo #\
 #	gluon-mesh-vpn-fastd \
 #	gluon-radvd \
 #	gluon-setup-mode \
-#	gluon-status-page \
+	gluon-status-page \
 #	iwinfo \
 #	iptables \
 #	haveged \
 #	gluon-web-private-wifi \
 #	gluon-banner \
-#	gluon-ssid-changer
+	gluon-ssid-changer
 
 ##	DEFAULT_GLUON_RELEASE
 #		version string to use for images
