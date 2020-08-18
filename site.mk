@@ -6,6 +6,7 @@
 #		depending on the combination of features listed
 
 GLUON_FEATURES := \
+	autoupdater-fallback \
 	autoupdater \
 	ebtables-filter-multicast \
 	ebtables-filter-ra-dhcp \
@@ -22,6 +23,9 @@ GLUON_FEATURES := \
 GLUON_SITE_PACKAGES :=\
 #	gluon-respondd \
 	gluon-autoupdater \
+	ffffm-button-bind \
+	gluon-autoupdater-branch-fix \
+	gluon-config-mode-geo-location-osm \
 #	gluon-config-mode-core \
 #	gluon-config-mode-autoupdater\
 #	gluon-config-mode-hostname \
