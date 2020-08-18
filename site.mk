@@ -25,11 +25,11 @@ GLUON_FEATURES := \
 GLUON_SITE_PACKAGES :=\
     iwinfo \
     iptables \
-    respondd-module-airtime \
     ffffm-button-bind \
     gluon-banner \
     gluon-autoupdater-branch-fix \
     gluon-ssid-changer
+#    respondd-module-airtime \
 #	gluon-config-mode-geo-location-osm \
 #############################
 # Additional package sets
