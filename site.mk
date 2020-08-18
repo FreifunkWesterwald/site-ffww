@@ -6,31 +6,30 @@
 #		depending on the combination of features listed
 
 GLUON_FEATURES := \
-	autoupdater \
-	autoupdater-fallback \
+    autoupdater-fallback \
     ebtables-filter-multicast \
     ebtables-filter-ra-dhcp \
     ebtables-source-filter \
     ebtables-limit-arp \
     radv-filterd \
-	mesh-batman-adv-15 \
-	mesh-vpn-fastd \
-	respondd \
+    mesh-batman-adv-15 \
+    mesh-vpn-fastd \
+    respondd \
     status-page \
-	web-advanced \
-	web-wizard \
+    web-advanced \
+    web-wizard \
     web-private-wifi
 
 ##	GLUON_SITE_PACKAGES
 #		specify gluon/openwrt packages to include here
 GLUON_SITE_PACKAGES :=\
-	iwinfo \
-	iptables \
-	respondd-module-airtime \
-	ffffm-button-bind \
-	gluon-banner \
-	gluon-autoupdater-branch-fix \
-	gluon-ssid-changer
+    iwinfo \
+    iptables \
+    respondd-module-airtime \
+    ffffm-button-bind \
+    gluon-banner \
+    gluon-autoupdater-branch-fix \
+    gluon-ssid-changer
 #	gluon-config-mode-geo-location-osm \
 #############################
 # Additional package sets
