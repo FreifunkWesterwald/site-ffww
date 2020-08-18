@@ -46,8 +46,8 @@ GLUON_SITE_PACKAGES :=\
 #	iwinfo \
 #	iptables \
 #	haveged \
-#	gluon-web-private-wifi \
-#	gluon-banner \
+	gluon-web-private-wifi \
+	gluon-banner \
 	gluon-ssid-changer
 
 ##	DEFAULT_GLUON_RELEASE
