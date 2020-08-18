@@ -2,7 +2,7 @@
 set -e
 
 cd gluon/
-export GLUON_BRANCH=${GLUON_BRANCH:-master}
+export GLUON_BRANCH=${GLUON_BRANCH:-unstable}
 export GLUON_TARGET=$1
 
 export GLUON_SITEDIR=../
