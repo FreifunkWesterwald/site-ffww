@@ -7,11 +7,8 @@
 
 GLUON_FEATURES := \
 	autoupdater-fallback \
-	ebtables-limit-arp \
 	mesh-batman-adv-15 \
 	mesh-vpn-fastd \
-	respondd \
-	status-page \
 	web-advanced \
 	web-wizard
 
@@ -21,7 +18,7 @@ GLUON_SITE_PACKAGES :=\
 	gluon-autoupdater \
 	ffffm-button-bind \
 	gluon-autoupdater-branch-fix \
-	gluon-config-mode-geo-location-osm \
+#	gluon-config-mode-geo-location-osm \
 	gluon-ebtables-filter-multicast \
     gluon-ebtables-filter-ra-dhcp \
     gluon-ebtables-source-filter \
