@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+# init gluon repository
+git submodule update --init
+
 cd gluon/
 export GLUON_BRANCH=${GLUON_BRANCH:-unstable}
 export GLUON_TARGET=$1
