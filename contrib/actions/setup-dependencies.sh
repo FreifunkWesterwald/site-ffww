@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
 
-git submodule update --init 
-apt-get install git make gcc g++ unzip libncurses5-dev zlib1g-dev subversion gawk bzip2 libssl-dev wget
+apt-get update
+apt-get install -y sudo python git make gcc g++ unzip libncurses5-dev zlib1g-dev subversion gawk bzip2 libssl-dev wget
+git submodule update --init
