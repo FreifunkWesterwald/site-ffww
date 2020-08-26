@@ -19,9 +19,9 @@ ACTIONS_TARGET="""
     name: {target_name}
     runs-on: ubuntu-latest
     steps:
-      - name: Compute tag name
-        id: tag_name
-        run: echo ::set-output name=tag_name::$(echo ${{{{ github.ref }}}} | sed 's!refs/tags/!!')
+      - name: compute version name
+        id: version_name
+        run: echo ::set-output name=version_name::$(echo ${{{{ github.ref }}}} | sed -e 's!refs/tags/!!' -e 's/=/~/')
       
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -35,7 +35,7 @@ ACTIONS_TARGET="""
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${{BUILD_VERSION:-XX}}
         env:
-          BUILD_VERSION: ${{{{ steps.tag_name.outputs.tag_name }}}}
+          BUILD_VERSION: ${{{{ steps.version_name.outputs.version_name }}}}
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
