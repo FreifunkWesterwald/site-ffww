@@ -7,6 +7,7 @@
 
 GLUON_FEATURES := \
     autoupdater-fallback \
+    config-mode-geo-location-osm \
     ebtables-filter-multicast \
     ebtables-filter-ra-dhcp \
     ebtables-source-filter \
