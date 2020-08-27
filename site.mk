@@ -30,7 +30,7 @@ GLUON_SITE_PACKAGES :=\
     gluon-autoupdater-branch-fix \
     gluon-ssid-changer
 #    respondd-module-airtime \
-#	gluon-config-mode-geo-location-osm \
+#	 gluon-config-mode-geo-location-osm
 #############################
 # Additional package sets
 #############################
