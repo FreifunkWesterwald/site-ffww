@@ -7,6 +7,7 @@
 
 GLUON_FEATURES := \
     autoupdater-fallback \
+    config-mode-geo-location-osm \
     ebtables-filter-multicast \
     ebtables-filter-ra-dhcp \
     ebtables-source-filter \
@@ -30,7 +31,7 @@ GLUON_SITE_PACKAGES :=\
     gluon-autoupdater-branch-fix \
     gluon-ssid-changer
 #    respondd-module-airtime \
-#	gluon-config-mode-geo-location-osm \
+#	 gluon-config-mode-geo-location-osm
 #############################
 # Additional package sets
 #############################
