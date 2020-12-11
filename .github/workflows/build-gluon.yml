@@ -11,9 +11,6 @@ jobs:
     name: ar71xx-generic
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-        
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -26,11 +23,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -70,9 +70,6 @@ jobs:
     name: ar71xx-nand
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -85,11 +82,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -129,9 +129,6 @@ jobs:
     name: ath79-generic
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -144,11 +141,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -188,9 +188,6 @@ jobs:
     name: brcm2708-bcm2708
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -203,11 +200,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -247,9 +247,6 @@ jobs:
     name: brcm2708-bcm2709
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -262,11 +259,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -306,9 +306,6 @@ jobs:
     name: ipq40xx-generic
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -321,11 +318,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -365,9 +365,6 @@ jobs:
     name: ipq806x-generic
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -380,11 +377,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -424,9 +424,6 @@ jobs:
     name: lantiq-xrx200
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -439,11 +436,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -483,9 +483,6 @@ jobs:
     name: lantiq-xway
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -498,11 +495,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -542,9 +542,6 @@ jobs:
     name: mpc85xx-generic
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -557,11 +554,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -601,9 +601,6 @@ jobs:
     name: mpc85xx-p1020
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -616,11 +613,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -660,9 +660,6 @@ jobs:
     name: ramips-mt7620
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -675,11 +672,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -719,9 +719,6 @@ jobs:
     name: ramips-mt7621
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -734,11 +731,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -778,9 +778,6 @@ jobs:
     name: ramips-mt76x8
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -793,11 +790,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -837,9 +837,6 @@ jobs:
     name: ramips-rt305x
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -852,11 +849,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -896,9 +896,6 @@ jobs:
     name: sunxi-cortexa7
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -911,11 +908,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -955,9 +955,6 @@ jobs:
     name: x86-generic
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -970,11 +967,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -1014,9 +1014,6 @@ jobs:
     name: x86-geode
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -1029,11 +1026,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -1073,9 +1073,6 @@ jobs:
     name: x86-legacy
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -1088,11 +1085,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -1132,9 +1132,6 @@ jobs:
     name: x86-64
     runs-on: ubuntu-latest
     steps:
-      - name: enable ACTIONS_ALLOW_UNSECURE_COMMANDS
-        run: echo ::set-env name=ACTIONS_ALLOW_UNSECURE_COMMANDS::true
-
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
@@ -1147,11 +1144,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
