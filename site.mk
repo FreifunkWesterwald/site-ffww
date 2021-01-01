@@ -21,6 +21,10 @@ GLUON_FEATURES := \
     web-wizard \
     web-private-wifi
 
+GLUON_FEATURES_standard := \
+	wireless-encryption-wpa3
+
+
 ##	GLUON_SITE_PACKAGES
 #		specify gluon/openwrt packages to include here
 GLUON_SITE_PACKAGES :=\
