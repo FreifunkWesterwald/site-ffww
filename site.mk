@@ -14,7 +14,6 @@ GLUON_FEATURES := \
     ebtables-limit-arp \
     radv-filterd \
     mesh-batman-adv-15 \
-    mesh-wireless-sae \
     mesh-vpn-fastd \
     respondd \
     status-page \
@@ -23,7 +22,11 @@ GLUON_FEATURES := \
     web-private-wifi
 
 GLUON_FEATURES_standard := \
-	wireless-encryption-wpa3
+	mesh-wireless-sae \
+	mesh-wireless-sae \
+	wireless-encryption-wpa3 
+	
+
 ##	GLUON_SITE_PACKAGES
 #		specify gluon/openwrt packages to include here
 GLUON_SITE_PACKAGES :=\
