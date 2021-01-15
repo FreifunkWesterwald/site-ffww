@@ -1,4 +1,3 @@
-
 # Update this file after adding/removing/renaming a target by running
 # `contrib/list-targets.sh | contrib/generate-actions.py > .github/workflows/build-gluon.yml`
 name: Build Gluon
@@ -15,7 +14,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -24,11 +23,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -49,17 +51,17 @@ jobs:
         with:
           name: ar71xx-generic_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ar71xx-generic.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ar71xx-generic.tar.xz
           asset_name: ar71xx-generic.tar.xz
           asset_content_type: application/x-xz
@@ -71,7 +73,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -80,11 +82,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -105,17 +110,17 @@ jobs:
         with:
           name: ar71xx-nand_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ar71xx-nand.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ar71xx-nand.tar.xz
           asset_name: ar71xx-nand.tar.xz
           asset_content_type: application/x-xz
@@ -127,7 +132,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -136,11 +141,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -161,17 +169,17 @@ jobs:
         with:
           name: ath79-generic_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ath79-generic.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ath79-generic.tar.xz
           asset_name: ath79-generic.tar.xz
           asset_content_type: application/x-xz
@@ -183,7 +191,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -192,11 +200,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -217,17 +228,17 @@ jobs:
         with:
           name: brcm2708-bcm2708_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf brcm2708-bcm2708.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./brcm2708-bcm2708.tar.xz
           asset_name: brcm2708-bcm2708.tar.xz
           asset_content_type: application/x-xz
@@ -239,7 +250,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -248,11 +259,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -273,17 +287,17 @@ jobs:
         with:
           name: brcm2708-bcm2709_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf brcm2708-bcm2709.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./brcm2708-bcm2709.tar.xz
           asset_name: brcm2708-bcm2709.tar.xz
           asset_content_type: application/x-xz
@@ -295,7 +309,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -304,11 +318,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -329,17 +346,17 @@ jobs:
         with:
           name: ipq40xx-generic_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ipq40xx-generic.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ipq40xx-generic.tar.xz
           asset_name: ipq40xx-generic.tar.xz
           asset_content_type: application/x-xz
@@ -351,7 +368,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -360,11 +377,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -385,17 +405,17 @@ jobs:
         with:
           name: ipq806x-generic_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ipq806x-generic.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ipq806x-generic.tar.xz
           asset_name: ipq806x-generic.tar.xz
           asset_content_type: application/x-xz
@@ -407,7 +427,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -416,11 +436,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -441,17 +464,17 @@ jobs:
         with:
           name: lantiq-xrx200_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf lantiq-xrx200.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./lantiq-xrx200.tar.xz
           asset_name: lantiq-xrx200.tar.xz
           asset_content_type: application/x-xz
@@ -463,7 +486,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -472,11 +495,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -497,17 +523,17 @@ jobs:
         with:
           name: lantiq-xway_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf lantiq-xway.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./lantiq-xway.tar.xz
           asset_name: lantiq-xway.tar.xz
           asset_content_type: application/x-xz
@@ -519,7 +545,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -528,11 +554,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -553,17 +582,17 @@ jobs:
         with:
           name: mpc85xx-generic_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf mpc85xx-generic.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./mpc85xx-generic.tar.xz
           asset_name: mpc85xx-generic.tar.xz
           asset_content_type: application/x-xz
@@ -575,7 +604,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -584,11 +613,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -609,17 +641,17 @@ jobs:
         with:
           name: mpc85xx-p1020_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf mpc85xx-p1020.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./mpc85xx-p1020.tar.xz
           asset_name: mpc85xx-p1020.tar.xz
           asset_content_type: application/x-xz
@@ -631,7 +663,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -640,11 +672,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -665,17 +700,17 @@ jobs:
         with:
           name: ramips-mt7620_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ramips-mt7620.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ramips-mt7620.tar.xz
           asset_name: ramips-mt7620.tar.xz
           asset_content_type: application/x-xz
@@ -687,7 +722,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -696,11 +731,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -721,17 +759,17 @@ jobs:
         with:
           name: ramips-mt7621_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ramips-mt7621.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ramips-mt7621.tar.xz
           asset_name: ramips-mt7621.tar.xz
           asset_content_type: application/x-xz
@@ -743,7 +781,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -752,11 +790,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -777,17 +818,17 @@ jobs:
         with:
           name: ramips-mt76x8_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ramips-mt76x8.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ramips-mt76x8.tar.xz
           asset_name: ramips-mt76x8.tar.xz
           asset_content_type: application/x-xz
@@ -799,7 +840,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -808,11 +849,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -833,17 +877,17 @@ jobs:
         with:
           name: ramips-rt305x_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf ramips-rt305x.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./ramips-rt305x.tar.xz
           asset_name: ramips-rt305x.tar.xz
           asset_content_type: application/x-xz
@@ -855,7 +899,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -864,11 +908,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -889,17 +936,17 @@ jobs:
         with:
           name: sunxi-cortexa7_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf sunxi-cortexa7.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./sunxi-cortexa7.tar.xz
           asset_name: sunxi-cortexa7.tar.xz
           asset_content_type: application/x-xz
@@ -911,7 +958,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -920,11 +967,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -945,17 +995,17 @@ jobs:
         with:
           name: x86-generic_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf x86-generic.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./x86-generic.tar.xz
           asset_name: x86-generic.tar.xz
           asset_content_type: application/x-xz
@@ -967,7 +1017,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -976,11 +1026,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -1001,17 +1054,17 @@ jobs:
         with:
           name: x86-geode_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf x86-geode.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./x86-geode.tar.xz
           asset_name: x86-geode.tar.xz
           asset_content_type: application/x-xz
@@ -1023,7 +1076,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -1032,11 +1085,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -1057,17 +1113,17 @@ jobs:
         with:
           name: x86-legacy_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf x86-legacy.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./x86-legacy.tar.xz
           asset_name: x86-legacy.tar.xz
           asset_content_type: application/x-xz
@@ -1079,7 +1135,7 @@ jobs:
       - name: compute version name
         id: version_name
         run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-      
+
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
@@ -1088,11 +1144,14 @@ jobs:
       # This controls the auto-updater
       - name: Set GLUON_BRANCH environment variable
         run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Set GLUON_RELEASE environment variable
         run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
         env:
           BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Install apt Dependencies
         run: sudo contrib/actions/setup-dependencies.sh
@@ -1113,17 +1172,17 @@ jobs:
         with:
           name: x86-64_output
           path: gluon/output
-      
+
       - name: build-tar
         run: tar cJf x86-64.tar.xz -C gluon/output .
-      
+
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ github.event.release.upload_url }} 
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./x86-64.tar.xz
           asset_name: x86-64.tar.xz
           asset_content_type: application/x-xz
