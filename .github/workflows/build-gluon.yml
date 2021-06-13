@@ -21,8 +21,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -80,8 +80,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -139,8 +139,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -198,8 +198,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -257,8 +257,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -316,8 +316,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -375,8 +375,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -434,8 +434,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -493,8 +493,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -552,8 +552,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -611,8 +611,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -670,8 +670,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -729,8 +729,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -788,8 +788,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -847,8 +847,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -906,8 +906,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -965,8 +965,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -1024,8 +1024,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -1083,8 +1083,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
@@ -1142,8 +1142,8 @@ jobs:
           fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_BRANCH environment variable
-        run: echo ::set-env name=GLUON_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
