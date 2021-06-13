@@ -187,6 +187,8 @@ DEFAULT_GLUON_RELEASE := XX+master$(shell date '+%Y%m%d%H%M')
 
 GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
+# Enable autoupdater
+GLUON_AUTOUPDATER_ENABLED := 1
 ## GLUON_REGION
 # 		Set Gluon Region
 GLUON_REGION  := eu
