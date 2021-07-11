@@ -49,13 +49,15 @@ contrib/actions/setup-dependencies.sh
 
 if [ "$TARGET" = "unset" -o -z "$TARGET" ]; then
   sudo -u build \
-    GLUON_BRANCH=$( [[ "$VERSION" =~ "unstable" ]] && echo unstable || echo stable) \
+    GLUON_AUTOUPDATER_BRANCH=$( [[ "$VERSION" =~ "unstable" ]] && echo unstable || echo stable) \
+    GLUON_AUTOUPDATER_ENABLED="1"\
     GLUON_RELEASE="$VERSION" \
     MAKE_PARALLEL="$THREADS" \
     contrib/make-all.sh
 else
   sudo -u build \
-    GLUON_BRANCH=$( [[ "$VERSION" =~ "unstable" ]] && echo unstable || echo stable) \
+    GLUON_AUTOUPDATER_BRANCH=$( [[ "$VERSION" =~ "unstable" ]] && echo unstable || echo stable) \
+    GLUON_AUTOUPDATER_ENABLED="1"\
     GLUON_RELEASE="$VERSION" \
     MAKE_PARALLEL="$THREADS" \
     contrib/actions/run-build.sh "$TARGET"
