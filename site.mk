@@ -14,7 +14,7 @@ GLUON_FEATURES := \
     ebtables-limit-arp \
     radv-filterd \
     mesh-batman-adv-15 \
-    mesh-vpn-fastd \
+    mesh-vpn-wireguard-vxlan \
     respondd \
     status-page \
     web-advanced \
