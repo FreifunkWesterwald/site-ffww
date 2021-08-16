@@ -68,7 +68,7 @@ USB_PACKAGES_STORAGE := \
 	kmod-fs-vfat \
 	kmod-usb-storage \
 	kmod-usb-storage-extras \
-	kmod-usb-storage-uas
+	kmod-usb-storage-uas \
 	kmod-nls-base \
 	kmod-nls-cp1250 \
 	kmod-nls-cp1251 \
