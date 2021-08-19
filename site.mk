@@ -42,16 +42,20 @@ GLUON_SITE_PACKAGES :=\
 #############################
 # Additional package sets
 #############################
+INCLUDE_USB := \
+	usbutils
+EXCLUDE_USB := \
+	-usbutils
 
 # USB Human Interface
-USB_PACKAGES_HID := \
+INCLUDE_USB_HID := \
 	kmod-usb-hid \
 	kmod-hid-generic
 EXCLUDE_USB_HID := \
 	-kmod-usb-hid \
 	-kmod-hid-generic
 # USB Serial
-USB_PACKAGES_SERIAL := \
+INCLUDE_USB_SERIAL := \
 	kmod-usb-serial \
 	kmod-usb-serial-ftdi \
 	kmod-usb-serial-pl2303
@@ -60,7 +64,7 @@ EXCLUDE_USB_SERIAL := \
 	-kmod-usb-serial-ftdi \
 	-kmod-usb-serial-pl2303
 # USB Storage
-USB_PACKAGES_STORAGE := \
+INCLUDE_USB_STORAGE := \
 	block-mount \
 	blkid \
 	kmod-fs-ext4 \
@@ -79,32 +83,30 @@ USB_PACKAGES_STORAGE := \
 	kmod-nls-iso8859-13 \
 	kmod-nls-iso8859-15 \
 	kmod-nls-iso8859-2 \
-	kmod-nls-utf8 \
-	swap-utils
+	kmod-nls-utf8
 EXCLUDE_USB_STORAGE := \
-        block-mount \
-        blkid \
-        kmod-fs-ext4 \
-        kmod-fs-ntfs \
-        kmod-fs-vfat \
-        kmod-usb-storage \
-        kmod-usb-storage-extras \
-        kmod-usb-storage-uas \
-        kmod-nls-base \
-        kmod-nls-cp1250 \
-        kmod-nls-cp1251 \
-        kmod-nls-cp437 \
-        kmod-nls-cp850 \
-        kmod-nls-cp852 \
-        kmod-nls-iso8859-1 \
-        kmod-nls-iso8859-13 \
-        kmod-nls-iso8859-15 \
-        kmod-nls-iso8859-2 \
-        kmod-nls-utf8 \
-        swap-utils
+	-block-mount \
+	-blkid \
+	-kmod-fs-ext4 \
+	-kmod-fs-ntfs \
+	-kmod-fs-vfat \
+	-kmod-usb-storage \
+	-kmod-usb-storage-extras \
+	-kmod-usb-storage-uas \
+	-kmod-nls-base \
+	-kmod-nls-cp1250 \
+	-kmod-nls-cp1251 \
+	-kmod-nls-cp437 \
+	-kmod-nls-cp850 \
+	-kmod-nls-cp852 \
+	-kmod-nls-iso8859-1 \
+	-kmod-nls-iso8859-13 \
+	-kmod-nls-iso8859-15 \
+	-kmod-nls-iso8859-2 \
+	-kmod-nls-utf8
 
 # USB Network
-USB_PACKAGES_NET := \
+INCLUDE_USB_NET := \
 	usb-modeswitch \
 	ffda-usb-wan-hotplug \
 	ffka-gluon-web-usb-wan-hotplug \
@@ -133,34 +135,33 @@ USB_PACKAGES_NET := \
 	kmod-usb-net-sierrawireless \
 	kmod-usb-net-smsc95xx
 EXCLUDE_USB_NET := \
-        usb-modeswitch \
-        ffda-usb-wan-hotplug \
-        ffka-gluon-web-usb-wan-hotplug \
-        kmod-ath9k-htc \
-        kmod-rt2800-usb \
-        kmod-mii \
-        kmod-nls-base \
-        kmod-usb-net \
-        kmod-usb-net-asix \
-        kmod-usb-net-asix-ax88179 \
-        kmod-usb-net-cdc-eem \
-        kmod-usb-net-cdc-ether \
-        kmod-usb-net-cdc-mbim \
-        kmod-usb-net-cdc-subset \
-        kmod-usb-net-dm9601-ether \
-        kmod-usb-net-hso \
-        kmod-usb-net-huawei-cdc-ncm \
-        kmod-usb-net-ipheth \
-        kmod-usb-net-kalmia \
-        kmod-usb-net-kaweth \
-        kmod-usb-net-mcs7830 \
-        kmod-usb-net-pegasus \
-        kmod-usb-net-qmi-wwan \
-        kmod-usb-net-rndis \
-        kmod-usb-net-rtl8152 \
-        kmod-usb-net-sierrawireless \
-        kmod-usb-net-smsc95xx
-
+	-usb-modeswitch \
+	-ffda-usb-wan-hotplug \
+	-ffka-gluon-web-usb-wan-hotplug \
+	-kmod-ath9k-htc \
+	-kmod-rt2800-usb \
+	-kmod-mii \
+	-kmod-nls-base \
+	-kmod-usb-net \
+	-kmod-usb-net-asix \
+	-kmod-usb-net-asix-ax88179 \
+	-kmod-usb-net-cdc-eem \
+	-kmod-usb-net-cdc-ether \
+	-kmod-usb-net-cdc-mbim \
+	-kmod-usb-net-cdc-subset \
+	-kmod-usb-net-dm9601-ether \
+	-kmod-usb-net-hso \
+	-kmod-usb-net-huawei-cdc-ncm \
+	-kmod-usb-net-ipheth \
+	-kmod-usb-net-kalmia \
+	-kmod-usb-net-kaweth \
+	-kmod-usb-net-mcs7830 \
+	-kmod-usb-net-pegasus \
+	-kmod-usb-net-qmi-wwan \
+	-kmod-usb-net-rndis \
+	-kmod-usb-net-rtl8152 \
+	-kmod-usb-net-sierrawireless \
+	-kmod-usb-net-smsc95xx
 
 INCLUDE_PCI := \
 	pciutils
@@ -179,7 +180,6 @@ EXCLUDE_TLS := \
 	-ca-bundle \
 	-libustream-openssl
 
-
 INCLUDE_TOOLS := \
 	iperf3 \
 	socat \
@@ -190,8 +190,6 @@ EXCLUDE_TOOLS := \
 	-socat \
 	-tcpdump \
 	-vnstat
-
-
 
 ##	DEFAULT_GLUON_RELEASE
 #		version string to use for images
