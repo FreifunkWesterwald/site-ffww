@@ -1,6 +1,8 @@
-GLUON_SITE_FEEDS='ffww_packages ssidchanger'
+GLUON_SITE_FEEDS='ffww_packages ssidchanger community'
 PACKAGES_FFWW_PACKAGES_REPO=https://github.com/FreifunkWesterwald/gluon-packages-extra.git
 PACKAGES_FFWW_PACKAGES_BRANCH=master
-PACKAGES_FFWW_PACKAGES_COMMIT=f5f0d531118210b9207739349913e05f0161743f
+PACKAGES_FFWW_PACKAGES_COMMIT=dc3a315f6d32d25166a2ccb6b8d1bf52bb563225
 PACKAGES_SSIDCHANGER_REPO=https://github.com/freifunk-nord/gluon-ssid-changer.git
 PACKAGES_SSIDCHANGER_COMMIT=f266b9e6328f97354f3b8777d1111ad044be9be5
+PACKAGES_COMMUNITY_REPO=https://github.com/freifunk-gluon/community-packages.git
+PACKAGES_COMMUNITY_COMMIT=1d7e81b3ebda8fa4896d55c79dff7051e8c0dde4
