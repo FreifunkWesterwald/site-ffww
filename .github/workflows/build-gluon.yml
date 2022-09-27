@@ -362,7 +362,7 @@ jobs:
           asset_content_type: application/x-xz
 
 
-    lantiq-xrx200:
+  lantiq-xrx200:
     name: lantiq-xrx200
     runs-on: ubuntu-latest
     steps:
