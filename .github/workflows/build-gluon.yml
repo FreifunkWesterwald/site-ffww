@@ -66,8 +66,8 @@ jobs:
           asset_name: ath79-generic.tar.xz
           asset_content_type: application/x-xz
 
-  brcm27xx-bcm2708:
-    name: brcm27xx-bcm2708
+  bcm27xx-bcm2708:
+    name: bcm27xx-bcm2708
     runs-on: ubuntu-latest
     steps:
       - name: compute version name
@@ -95,24 +95,24 @@ jobs:
         run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
-        run: contrib/actions/run-build.sh brcm27xx-bcm2708
+        run: contrib/actions/run-build.sh bcm27xx-bcm2708
 
       #TODO: Auto-activate, when verbose logging is enabled?
       #- name: Archive build logs
       #  if: ${{ !cancelled() }}
       #  uses: actions/upload-artifact@v2
       #  with:
-      #    name: brcm27xx-bcm2708_logs
+      #    name: bcm27xx-bcm2708_logs
       #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
         with:
-          name: brcm27xx-bcm2708_output
+          name: bcm27xx-bcm2708_output
           path: gluon/output
 
       - name: build-tar
-        run: tar cJf brcm27xx-bcm2708.tar.xz -C gluon/output .
+        run: tar cJf bcm27xx-bcm2708.tar.xz -C gluon/output .
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -121,12 +121,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./brcm27xx-bcm2708.tar.xz
-          asset_name: brcm27xx-bcm2708.tar.xz
+          asset_path: ./bcm27xx-bcm2708.tar.xz
+          asset_name: bcm27xx-bcm2708.tar.xz
           asset_content_type: application/x-xz
 
-  brcm27xx-bcm2709:
-    name: brcm27xx-bcm2709
+  bcm27xx-bcm2709:
+    name: bcm27xx-bcm2709
     runs-on: ubuntu-latest
     steps:
       - name: compute version name
@@ -154,24 +154,24 @@ jobs:
         run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
-        run: contrib/actions/run-build.sh brcm27xx-bcm2709
+        run: contrib/actions/run-build.sh bcm27xx-bcm2709
 
       #TODO: Auto-activate, when verbose logging is enabled?
       #- name: Archive build logs
       #  if: ${{ !cancelled() }}
       #  uses: actions/upload-artifact@v2
       #  with:
-      #    name: brcm27xx-bcm2709_logs
+      #    name: bcm27xx-bcm2709_logs
       #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
         with:
-          name: brcm27xx-bcm2709_output
+          name: bcm27xx-bcm2709_output
           path: gluon/output
 
       - name: build-tar
-        run: tar cJf brcm27xx-bcm2709.tar.xz -C gluon/output .
+        run: tar cJf bcm27xx-bcm2709.tar.xz -C gluon/output .
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -180,8 +180,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./brcm27xx-bcm2709.tar.xz
-          asset_name: brcm27xx-bcm2709.tar.xz
+          asset_path: ./bcm27xx-bcm2709.tar.xz
+          asset_name: bcm27xx-bcm2709.tar.xz
           asset_content_type: application/x-xz
 
   ipq40xx-generic:
