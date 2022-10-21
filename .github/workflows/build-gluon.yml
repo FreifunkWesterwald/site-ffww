@@ -7,124 +7,6 @@ on:
       - 'published'
 jobs:
 
-  ar71xx-generic:
-    name: ar71xx-generic
-    runs-on: ubuntu-latest
-    steps:
-      - name: compute version name
-        id: version_name
-        run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      # This controls the auto-updater
-      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
-        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
-      - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
-        env:
-          BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
-      - name: Build
-        run: contrib/actions/run-build.sh ar71xx-generic
-
-      #TODO: Auto-activate, when verbose logging is enabled?
-      #- name: Archive build logs
-      #  if: ${{ !cancelled() }}
-      #  uses: actions/upload-artifact@v2
-      #  with:
-      #    name: ar71xx-generic_logs
-      #    path: gluon/openwrt/logs
-
-      - name: Archive build output
-        uses: actions/upload-artifact@v2
-        with:
-          name: ar71xx-generic_output
-          path: gluon/output
-
-      - name: build-tar
-        run: tar cJf ar71xx-generic.tar.xz -C gluon/output .
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./ar71xx-generic.tar.xz
-          asset_name: ar71xx-generic.tar.xz
-          asset_content_type: application/x-xz
-
-  ar71xx-nand:
-    name: ar71xx-nand
-    runs-on: ubuntu-latest
-    steps:
-      - name: compute version name
-        id: version_name
-        run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      # This controls the auto-updater
-      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
-        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
-      - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
-        env:
-          BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
-
-      - name: Build
-        run: contrib/actions/run-build.sh ar71xx-nand
-
-      #TODO: Auto-activate, when verbose logging is enabled?
-      #- name: Archive build logs
-      #  if: ${{ !cancelled() }}
-      #  uses: actions/upload-artifact@v2
-      #  with:
-      #    name: ar71xx-nand_logs
-      #    path: gluon/openwrt/logs
-
-      - name: Archive build output
-        uses: actions/upload-artifact@v2
-        with:
-          name: ar71xx-nand_output
-          path: gluon/output
-
-      - name: build-tar
-        run: tar cJf ar71xx-nand.tar.xz -C gluon/output .
-
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./ar71xx-nand.tar.xz
-          asset_name: ar71xx-nand.tar.xz
-          asset_content_type: application/x-xz
-
   ath79-generic:
     name: ath79-generic
     runs-on: ubuntu-latest
@@ -184,8 +66,8 @@ jobs:
           asset_name: ath79-generic.tar.xz
           asset_content_type: application/x-xz
 
-  brcm2708-bcm2708:
-    name: brcm2708-bcm2708
+  bcm27xx-bcm2708:
+    name: bcm27xx-bcm2708
     runs-on: ubuntu-latest
     steps:
       - name: compute version name
@@ -213,24 +95,24 @@ jobs:
         run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
-        run: contrib/actions/run-build.sh brcm2708-bcm2708
+        run: contrib/actions/run-build.sh bcm27xx-bcm2708
 
       #TODO: Auto-activate, when verbose logging is enabled?
       #- name: Archive build logs
       #  if: ${{ !cancelled() }}
       #  uses: actions/upload-artifact@v2
       #  with:
-      #    name: brcm2708-bcm2708_logs
+      #    name: bcm27xx-bcm2708_logs
       #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
         with:
-          name: brcm2708-bcm2708_output
+          name: bcm27xx-bcm2708_output
           path: gluon/output
 
       - name: build-tar
-        run: tar cJf brcm2708-bcm2708.tar.xz -C gluon/output .
+        run: tar cJf bcm27xx-bcm2708.tar.xz -C gluon/output .
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -239,12 +121,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./brcm2708-bcm2708.tar.xz
-          asset_name: brcm2708-bcm2708.tar.xz
+          asset_path: ./bcm27xx-bcm2708.tar.xz
+          asset_name: bcm27xx-bcm2708.tar.xz
           asset_content_type: application/x-xz
 
-  brcm2708-bcm2709:
-    name: brcm2708-bcm2709
+  bcm27xx-bcm2709:
+    name: bcm27xx-bcm2709
     runs-on: ubuntu-latest
     steps:
       - name: compute version name
@@ -272,24 +154,24 @@ jobs:
         run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
-        run: contrib/actions/run-build.sh brcm2708-bcm2709
+        run: contrib/actions/run-build.sh bcm27xx-bcm2709
 
       #TODO: Auto-activate, when verbose logging is enabled?
       #- name: Archive build logs
       #  if: ${{ !cancelled() }}
       #  uses: actions/upload-artifact@v2
       #  with:
-      #    name: brcm2708-bcm2709_logs
+      #    name: bcm27xx-bcm2709_logs
       #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
         with:
-          name: brcm2708-bcm2709_output
+          name: bcm27xx-bcm2709_output
           path: gluon/output
 
       - name: build-tar
-        run: tar cJf brcm2708-bcm2709.tar.xz -C gluon/output .
+        run: tar cJf bcm27xx-bcm2709.tar.xz -C gluon/output .
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -298,8 +180,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./brcm2708-bcm2709.tar.xz
-          asset_name: brcm2708-bcm2709.tar.xz
+          asset_path: ./bcm27xx-bcm2709.tar.xz
+          asset_name: bcm27xx-bcm2709.tar.xz
           asset_content_type: application/x-xz
 
   ipq40xx-generic:
@@ -420,6 +302,66 @@ jobs:
           asset_name: ipq806x-generic.tar.xz
           asset_content_type: application/x-xz
 
+  ipq40xx-mikrotik:
+    name: ipq40xx-mikrotik
+    runs-on: ubuntu-latest
+    steps:
+      - name: compute version name
+        id: version_name
+        run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # This controls the auto-updater
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
+        env:
+          BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
+
+      - name: Build
+        run: contrib/actions/run-build.sh ipq40xx-mikrotik
+
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ipq40xx-mikrotik_logs
+      #    path: gluon/openwrt/logs
+
+      - name: Archive build output
+        uses: actions/upload-artifact@v2
+        with:
+          name: ipq40xx-mikrotik_output
+          path: gluon/output
+
+      - name: build-tar
+        run: tar cJf ipq40xx-mikrotik.tar.xz -C gluon/output .
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./ipq40xx-mikrotik.tar.xz
+          asset_name: ipq40xx-mikrotik.tar.xz
+          asset_content_type: application/x-xz
+
+
   lantiq-xrx200:
     name: lantiq-xrx200
     runs-on: ubuntu-latest
@@ -538,8 +480,8 @@ jobs:
           asset_name: lantiq-xway.tar.xz
           asset_content_type: application/x-xz
 
-  mpc85xx-generic:
-    name: mpc85xx-generic
+  mpc85xx-p1010:
+    name: mpc85xx-p1010
     runs-on: ubuntu-latest
     steps:
       - name: compute version name
@@ -567,24 +509,24 @@ jobs:
         run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
-        run: contrib/actions/run-build.sh mpc85xx-generic
+        run: contrib/actions/run-build.sh mpc85xx-p1010
 
       #TODO: Auto-activate, when verbose logging is enabled?
       #- name: Archive build logs
       #  if: ${{ !cancelled() }}
       #  uses: actions/upload-artifact@v2
       #  with:
-      #    name: mpc85xx-generic_logs
+      #    name: mpc85xx-p1010_logs
       #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
         with:
-          name: mpc85xx-generic_output
+          name: mpc85xx-p1010_output
           path: gluon/output
 
       - name: build-tar
-        run: tar cJf mpc85xx-generic.tar.xz -C gluon/output .
+        run: tar cJf mpc85xx-p1010.tar.xz -C gluon/output .
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -593,9 +535,69 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./mpc85xx-generic.tar.xz
-          asset_name: mpc85xx-generic.tar.xz
+          asset_path: ./mpc85xx-p1010.tar.xz
+          asset_name: mpc85xx-p1010.tar.xz
           asset_content_type: application/x-xz
+  
+  mediatek-mt7622:
+    name: mediatek-mt7622
+    runs-on: ubuntu-latest
+    steps:
+      - name: compute version name
+        id: version_name
+        run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # This controls the auto-updater
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
+        env:
+          BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
+
+      - name: Build
+        run: contrib/actions/run-build.sh mediatek-mt7622
+
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: mediatek-mt7622_logs
+      #    path: gluon/openwrt/logs
+
+      - name: Archive build output
+        uses: actions/upload-artifact@v2
+        with:
+          name: mediatek-mt7622_output
+          path: gluon/output
+
+      - name: build-tar
+        run: tar cJf mediatek-mt7622.tar.xz -C gluon/output .
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./mediatek-mt7622.tar.xz
+          asset_name: mediatek-mt7622.tar.xz
+          asset_content_type: application/x-xz
+
 
   mpc85xx-p1020:
     name: mpc85xx-p1020
@@ -833,8 +835,8 @@ jobs:
           asset_name: ramips-mt76x8.tar.xz
           asset_content_type: application/x-xz
 
-  ramips-rt305x:
-    name: ramips-rt305x
+  rockchip-armv8:
+    name: rockchip-armv8
     runs-on: ubuntu-latest
     steps:
       - name: compute version name
@@ -862,24 +864,24 @@ jobs:
         run: sudo contrib/actions/setup-dependencies.sh
 
       - name: Build
-        run: contrib/actions/run-build.sh ramips-rt305x
+        run: contrib/actions/run-build.sh rockchip-armv8
 
       #TODO: Auto-activate, when verbose logging is enabled?
       #- name: Archive build logs
       #  if: ${{ !cancelled() }}
       #  uses: actions/upload-artifact@v2
       #  with:
-      #    name: ramips-rt305x_logs
+      #    name: rockchip-armv8_logs
       #    path: gluon/openwrt/logs
 
       - name: Archive build output
         uses: actions/upload-artifact@v2
         with:
-          name: ramips-rt305x_output
+          name: rockchip-armv8_output
           path: gluon/output
 
       - name: build-tar
-        run: tar cJf ramips-rt305x.tar.xz -C gluon/output .
+        run: tar cJf rockchip-armv8.tar.xz -C gluon/output .
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -888,8 +890,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./ramips-rt305x.tar.xz
-          asset_name: ramips-rt305x.tar.xz
+          asset_path: ./rockchip-armv8.tar.xz
+          asset_name: rockchip-armv8.tar.xz
           asset_content_type: application/x-xz
 
   sunxi-cortexa7:
