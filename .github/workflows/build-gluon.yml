@@ -66,6 +66,65 @@ jobs:
           asset_name: ath79-generic.tar.xz
           asset_content_type: application/x-xz
 
+  ath79-nand:
+    name: ath79-nand
+    runs-on: ubuntu-latest
+    steps:
+      - name: compute version name
+        id: version_name
+        run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # This controls the auto-updater
+      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - name: Set GLUON_RELEASE environment variable
+        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
+        env:
+          BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
+
+      - name: Build
+        run: contrib/actions/run-build.sh ath79-nand
+
+      #TODO: Auto-activate, when verbose logging is enabled?
+      #- name: Archive build logs
+      #  if: ${{ !cancelled() }}
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: ath79-nand_logs
+      #    path: gluon/openwrt/logs
+
+      - name: Archive build output
+        uses: actions/upload-artifact@v2
+        with:
+          name: ath79-nand_output
+          path: gluon/output
+
+      - name: build-tar
+        run: tar cJf ath79-nand.tar.xz -C gluon/output .
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./ath79-nand.tar.xz
+          asset_name: ath79-nand.tar.xz
+          asset_content_type: application/x-xz
+
   bcm27xx-bcm2708:
     name: bcm27xx-bcm2708
     runs-on: ubuntu-latest
@@ -1130,36 +1189,36 @@ jobs:
           asset_name: x86-legacy.tar.xz
           asset_content_type: application/x-xz
 
-  x86-64:
-    name: x86-64
-    runs-on: ubuntu-latest
-    steps:
-      - name: compute version name
-        id: version_name
-        run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
+#  x86-64:
+#    name: x86-64
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: compute version name
+#        id: version_name
+#        run: echo ::set-output name=version_name::$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+#      - name: Checkout repository
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
 
       # This controls the auto-updater
-      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
-        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+#      - name: Set GLUON_AUTOUPDATER_BRANCH environment variable
+#        run: echo ::set-env name=GLUON_AUTOUPDATER_BRANCH::$( [[ "${{ github.ref }}" =~ "unstable" ]] && echo unstable || echo stable)
+#        env:
+#          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
-      - name: Set GLUON_RELEASE environment variable
-        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
-        env:
-          BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+#      - name: Set GLUON_RELEASE environment variable
+#        run: echo ::set-env name=GLUON_RELEASE::${BUILD_VERSION:-XX}
+#        env:
+#          BUILD_VERSION: ${{ steps.version_name.outputs.version_name }}
+#          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
-      - name: Install apt Dependencies
-        run: sudo contrib/actions/setup-dependencies.sh
+#      - name: Install apt Dependencies
+#        run: sudo contrib/actions/setup-dependencies.sh
 
-      - name: Build
-        run: contrib/actions/run-build.sh x86-64
+#      - name: Build
+#        run: contrib/actions/run-build.sh x86-64
 
       #TODO: Auto-activate, when verbose logging is enabled?
       #- name: Archive build logs
@@ -1169,23 +1228,23 @@ jobs:
       #    name: x86-64_logs
       #    path: gluon/openwrt/logs
 
-      - name: Archive build output
-        uses: actions/upload-artifact@v2
-        with:
-          name: x86-64_output
-          path: gluon/output
+#      - name: Archive build output
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: x86-64_output
+#          path: gluon/output
 
-      - name: build-tar
-        run: tar cJf x86-64.tar.xz -C gluon/output .
+#      - name: build-tar
+#        run: tar cJf x86-64.tar.xz -C gluon/output .
 
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./x86-64.tar.xz
-          asset_name: x86-64.tar.xz
-          asset_content_type: application/x-xz
+#      - name: Upload Release Asset
+#        id: upload-release-asset
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ github.event.release.upload_url }}
+#          asset_path: ./x86-64.tar.xz
+#          asset_name: x86-64.tar.xz
+#          asset_content_type: application/x-xz
 
