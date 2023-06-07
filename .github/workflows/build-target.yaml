@@ -56,7 +56,7 @@ jobs:
         run: contrib/actions/run-build.sh ${{ inputs.target_name }}
 
       - name: Archive build logs
-        if: !cancelled() and inputs.verbose
+        if: inputs.verbose
         uses: actions/upload-artifact@v2
         with:
           name: ${{ inputs.target_name }}_logs
