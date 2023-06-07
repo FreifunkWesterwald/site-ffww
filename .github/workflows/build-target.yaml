@@ -15,6 +15,21 @@ on:
         description: enable verbose logging
         default: false
         type: boolean
+  workflow_dispatch:
+    inputs:
+      target_name:
+        description: the name of the target
+        required: true
+        type: string
+      version:
+        description: the version string to use e.g. `2022.1.4-01~2023060601-unstable`
+        required: true
+        default: ''
+        type: string
+      verbose:
+        description: enable verbose logging
+        default: false
+        type: boolean
 jobs:
   build-gluon:
     name: build gluon ${{ inputs.target_name }}
