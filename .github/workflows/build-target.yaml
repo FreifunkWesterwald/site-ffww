@@ -1,0 +1,68 @@
+name: build gluon target
+on:
+  workflow_call:
+    inputs:
+      target_name:
+        description: the name of the target
+        required: true
+        type: string
+      version:
+        description: the version string to use e.g. `2022.1.4-01~2023060601-unstable`
+        required: true
+        default: ''
+        type: string
+      verbose:
+        description: enable verbose logging
+        default: false
+        type: boolean
+jobs:
+  build-gluon:
+    name: build gluon ${{ inputs.target_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: set GLUON_RELEASE
+        run: echo "GLUON_RELEASE=${{ inputs.version }}" >> "$GITHUB_ENV"
+      # This controls the auto-updater
+      - name: set GLUON_AUTOUPDATER_BRANCH environment variable
+        run: echo GLUON_AUTOUPDATER_BRANCH=$( [[ "${{ inputs.version }}" =~ "unstable" ]] && echo unstable || echo stable) >> "$GITHUB_ENV"
+      - name: set VERBOSE flag
+        if: inputs.verbose
+        run: echo VERBOSE=y >> "$GITHUB_ENV"
+
+      - name: Install apt Dependencies
+        run: sudo contrib/actions/setup-dependencies.sh
+
+      - name: Build ${{ inputs.target_name }}
+        run: contrib/actions/run-build.sh ${{ inputs.target_name }}
+
+      - name: Archive build logs
+        if: !cancelled() and inputs.verbose
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ inputs.target_name }}_logs
+          path: gluon/openwrt/logs
+
+      - name: Archive build output
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ inputs.target_name }}_output
+          path: gluon/output
+
+      - name: build-tar
+        run: tar cJf ${{ inputs.target_name }}.tar.xz -C gluon/output .
+
+      - name: Upload Release Asset
+        if: github.event_name  == 'release'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ inputs.target_name }}.tar.xz
+          asset_name: ${{ inputs.target_name }}.tar.xz
+          asset_content_type: application/x-xz
