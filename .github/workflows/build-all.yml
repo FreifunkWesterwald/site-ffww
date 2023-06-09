@@ -1,0 +1,55 @@
+name: build all gluon targets
+on:
+  release:
+    types:
+      - 'published'
+    workflow_dispatch:
+      inputs:
+        version:
+          description: the version string to use. can be omitted if building a tag.
+          required: false
+          default: ''
+          type: string
+jobs:
+  compute_version:
+    runs-on: ubuntu-latest
+    outputs:
+      version_name: ${{ steps.version_name.outputs.version_name }}
+    steps:
+      - name: compute version name
+        id: version_name
+        run: |
+          INPUT_VERSION="${{ inputs.version }}"
+          echo version_name=${INPUT_VERSION:-$(echo ${{ github.ref }} | sed -e 's!refs/tags/!!' -e 's/=/~/')} >> "$GITHUB_OUTPUT"
+  build_target:
+    needs: compute_version
+    uses: ./.github/workflows/build-target.yaml
+    with:
+      target_name: ${{ matrix.target }}
+      version: ${{ needs.compute_version.version_name }}
+    strategy:
+      matrix:
+        target:
+          - ath79-generic
+          - ath79-nand
+          - ath79-mikrotik
+          - bcm27xx-bcm2708
+          - bcm27xx-bcm2709
+          - ipq40xx-generic
+          - ipq40xx-mikrotik
+          - ipq806x-generic
+          - lantiq-xrx200
+          - lantiq-xway
+          - mediatek-mt7622
+          - mpc85xx-p1010
+          - mpc85xx-p1020
+          - ramips-mt7620
+          - ramips-mt7621
+          - ramips-mt76x8
+          - realtek-rtl838x
+          - rockchip-armv8
+          - sunxi-cortexa7
+          - x86-generic
+          - x86-geode
+          - x86-legacy
+          - x86-64
