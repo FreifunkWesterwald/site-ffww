@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: set GLUON_RELEASE
         run: echo "GLUON_RELEASE=${{ inputs.version }}" >> "$GITHUB_ENV"
