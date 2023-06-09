@@ -3,13 +3,13 @@ on:
   release:
     types:
       - 'published'
-    workflow_dispatch:
-      inputs:
-        version:
-          description: the version string to use. can be omitted if building a tag.
-          required: false
-          default: ''
-          type: string
+  workflow_dispatch:
+    inputs:
+      version:
+        description: the version string to use. can be omitted if building a tag.
+        required: false
+        default: ''
+        type: string
 jobs:
   compute_version:
     runs-on: ubuntu-latest
