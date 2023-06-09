@@ -26,7 +26,7 @@ jobs:
     uses: ./.github/workflows/build-target.yaml
     with:
       target_name: ${{ matrix.target }}
-      version: ${{ needs.compute_version.version_name }}
+      version: ${{ needs.compute_version.outputs.version_name }}
     strategy:
       matrix:
         target:
