@@ -39,6 +39,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: set GLUON_RELEASE
         run: echo "GLUON_RELEASE=${{ inputs.version }}" >> "$GITHUB_ENV"
@@ -56,7 +57,7 @@ jobs:
         run: contrib/actions/run-build.sh ${{ inputs.target_name }}
 
       - name: Archive build logs
-        if: !cancelled() and inputs.verbose
+        if: inputs.verbose
         uses: actions/upload-artifact@v2
         with:
           name: ${{ inputs.target_name }}_logs
