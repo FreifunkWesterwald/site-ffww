@@ -63,7 +63,7 @@ jobs:
           name: ${{ inputs.target_name }}_logs
           path: gluon/openwrt/logs
 
-      - name: Archive build output
+      - name: Archive build outputctions/upload-release-asset
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.target_name }}_output
@@ -74,7 +74,7 @@ jobs:
 
       - name: Upload Release Asset
         if: github.event_name  == 'release'
-        uses: actions/upload-release-asset
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
