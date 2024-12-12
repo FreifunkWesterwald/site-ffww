@@ -74,7 +74,7 @@ jobs:
 
       - name: Upload Release Asset
         if: github.event_name  == 'release'
-        uses: actions/upload-release-asset@v4
+        uses: actions/upload-release-asset@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
