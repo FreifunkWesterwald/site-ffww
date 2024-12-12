@@ -5,7 +5,7 @@ set -e
 git submodule update --init
 
 cd gluon/
-export GLUON_BRANCH=${GLUON_BRANCH:-unstable}
+export GLUON_AUTOUPDATER_BRANCH=${GLUON_BRANCH:-unstable}
 export GLUON_TARGET=$1
 
 export GLUON_SITEDIR=../
@@ -31,5 +31,6 @@ if [ ! -z "$VERBOSE" ]; then
 fi
 
 make update
+make clean $MAKE_OPTS
 make $MAKE_OPTS
 make manifest
