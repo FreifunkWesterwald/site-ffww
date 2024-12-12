@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -58,13 +58,13 @@ jobs:
 
       - name: Archive build logs
         if: inputs.verbose
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.target_name }}_logs
           path: gluon/openwrt/logs
 
       - name: Archive build output
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.target_name }}_output
           path: gluon/output
@@ -74,7 +74,7 @@ jobs:
 
       - name: Upload Release Asset
         if: github.event_name  == 'release'
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
