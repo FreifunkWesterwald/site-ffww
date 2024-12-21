@@ -141,8 +141,3 @@ if target('x86') then
 	packages(pkgs_usb_storage)
 end
 
--- the Network-activated setup-mode allows us to unbreak the device
-if device({'zyxel-nwa55axe'}) then
-	broken(false)
-	packages({'ffda-network-setup-mode'})
-end
