@@ -23,7 +23,8 @@ features({
 packages({
         'iwinfo',
         'ffffm-button-bind',
-        'gluon-banner' ,
+        'gluon-banner',
+	'gluon-ssid-changer',
 })
 
 -- Custom package lists
