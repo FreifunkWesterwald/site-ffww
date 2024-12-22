@@ -20,6 +20,13 @@ features({
     'wireless-encryption-wpa3',
 
 })
+packages({
+        'iwinfo',
+        'libustream-openssl',
+        'ffffm-button-bind',
+        'gluon-banner' ,
+        'gluon-autoupdater-branch-fix',
+})
 
 -- Custom package lists
 local pkgs_usb_hid = {
