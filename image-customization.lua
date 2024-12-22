@@ -22,10 +22,8 @@ features({
 })
 packages({
         'iwinfo',
-        'libustream-openssl',
         'ffffm-button-bind',
         'gluon-banner' ,
-        'gluon-autoupdater-branch-fix',
 })
 
 -- Custom package lists
