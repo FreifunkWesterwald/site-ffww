@@ -25,6 +25,7 @@ packages({
         'ffffm-button-bind',
         'gluon-banner',
 	'gluon-ssid-changer',
+	'gluon-autoupdater-branch-fix',
 })
 
 -- Custom package lists
