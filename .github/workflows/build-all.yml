@@ -28,6 +28,7 @@ jobs:
       target_name: ${{ matrix.target }}
       version: ${{ needs.compute_version.outputs.version_name }}
     strategy:
+      fail-fast: false
       matrix:
         target:
           - ath79-generic
