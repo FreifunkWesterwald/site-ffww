@@ -2,4 +2,4 @@
 set -e
 
 apt-get update
-apt-get install -y sudo git make automake libelf-dev gcc g++ unzip libncurses5-dev zlib1g-dev subversion gawk bzip2 libssl-dev wget python3 rsync file qemu-utils build-essential time python3-distutils golang
+apt-get install -y sudo git make automake libelf-dev gcc g++ unzip libncurses5-dev zlib1g-dev subversion gawk bzip2 libssl-dev wget python3 rsync file qemu-utils build-essential time python3-distutils-extra golang
