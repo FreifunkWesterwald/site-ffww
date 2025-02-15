@@ -5,7 +5,6 @@ set -e
 git submodule update --init
 
 cd gluon/
-export GLUON_AUTOUPDATER_BRANCH=${GLUON_BRANCH:-unstable}
 export GLUON_TARGET=$1
 
 export GLUON_SITEDIR=../
@@ -16,7 +15,7 @@ Freifunk Westerwald
 Gluon Firmware Build
 
 Version:   $GLUON_RELEASE
-Branch:    $GLUON_BRANCH
+Branch:    $GLUON_AUTOUPDATER_BRANCH
 Target(s): $GLUON_TARGET
 "
 
